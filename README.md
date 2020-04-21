@@ -1,2 +1,2 @@
 # confetti
-miscellaneous config files
+Miscellaneous config files for Linux.
