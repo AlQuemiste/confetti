@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# needs xkblayout-state
+KBLAYOUT=$(xkblayout-state print %s)
+
+echo ${KBLAYOUT}  # full text
+echo ${KBLAYOUT}  # short text

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# One of the following: xrandr, xbacklight, kernel
+METHOD="light"
+
+# Left click
+if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+  light -A 5
+# Right click
+elif [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+  light -U 5
+fi
+
+URGENT_VALUE=10
+if [[ "${METHOD}" = "light" ]]; then
+  curBrightness=$(light -G)
+fi
+
+percent=${curBrightness%.*}
+
+if [[ "${percent}" -le 0 ]]; then
+  exit
+fi
+
+echo "${percent}%"
+echo "${percent}%"
+echo ""
+
+if [[ "${percent}" -le "${URGENT_VALUE}" ]]; then
+  exit 33
+fi
