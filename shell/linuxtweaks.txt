@@ -1,0 +1,49 @@
+https://www.linuxquestions.org/questions/debian-26/howto-debian-7-wheezy-lxde-auto-numlock-both-before-and-after-login-4175500323/
+
+First, it is important to understand which Display Manager your system is running. You can find this out with the following command:
+Code:
+
+cat /etc/X11/default-display-manager
+
+apt-get install numlockx
+Edit the LightDM configuration file, "/etc/lightdm/lightdm.conf", and (again, as root) add the following line under the "[SeatDefaults]" section heading:
+Code:
+
+greeter-setup-script=/usr/bin/numlockx on
+
+--------------------------------------------
+
+https://unix.stackexchange.com/questions/337008/activate-tap-to-click-on-touchpad
+https://wiki.debian.org/SynapticsTouchpad#Debian_9_.22Stretch.22
+--------------------------------------------
+# show user list at logon: lightdm
+# in /usr/share/lightdm/lightdm.conf.d/01_debian.conf
+# add:
+greeter-hide-users=false
+greeter-show-manual-login=true
+
+# restart lightdm
+sudo service lightdm restart
+
+--------------------------------------------
+# compose key:
+# add to /etc/default/keyboard
+XKBOPTIONS="compose:menu"
+
+#Keyboard widget on Panel
+Advanced setxkmap Options => compose:menu
+
+
+--------------------------------------------
+config:
+https://github.com/ahmadsiddeeq0/config
+
+https://www.reddit.com/r/UsabilityPorn/comments/ffix69
+
+https://dwm.suckless.org/tutorial/
+
+--------------------------------------------
+CUPS Printing
+
+sudo apt-get install cups
+# Navigate to http://localhost:631 for printer configuration
