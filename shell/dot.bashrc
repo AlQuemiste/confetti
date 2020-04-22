@@ -117,7 +117,7 @@ fi
 # export PATH=$PATH:"~/.local/bin/"
 
 # TMP workspace
-alias cdWS="mkdir -p /tmp/myworkspace && cd /tmp/myworkspace"
+alias ':WS'="mkdir -p /tmp/myworkspace && cd /tmp/myworkspace"
 
 # aliasing to Python3
 alias py=python3
