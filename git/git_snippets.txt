@@ -1,0 +1,46 @@
+# Git snippets
+
+-- Git separates
+the add and commit steps to avoid volatility. Imagine how disruptive, confusing, and
+time-consuming it would be to update the repository each time you add, remove, or
+change a file. Instead, multiple provisional and related steps, such as an add, can be
+“batched,” keeping the repository in a stable, consistent state.
+
+# In bash
+$ export GIT_EDITOR=vim
+
+# show-branch , provides concise, one-line summaries for the current development branch:
+$ git show-branch --more=10
+
+# remove a branch (locally and remotely)
+$ git push -d <remote_name> <branch_name>
+$ git branch -d <branch_name>
+
+# View just remote-tracking branches
+git branch --remotes
+git branch -r
+
+# View both strictly local as well as remote-tracking branches
+git branch --all
+git branch -a
+
+# using -p, --prune After fetching, remove any remote-tracking branches which no longer exist on the remote
+git fetch -p
+
+
+# list current Git remotes
+git remote -v
+
+# restore a deleted file (notice the space before and after the double dash)
+git checkout -- <filename>
+
+# restore a file from a different branch; <filename> is a full path of a versioned file.
+# In a sub-directory, you can also use experiment:./app.js. You don't have to specify the full path.
+$ git show <branch-name/revision>:<filename>   # show the file
+$ git show <commit_id>:<filename> > <new-filename>
+$ git checkout <branch-name/revision> -- <filename>  # restore the file
+#-- example:
+$ git checkout experiment -- app.js
+$ git checkout experiment@{2}:app.js  # app.js two commits ago
+$ git checkout experiment@{yesterday}:app.js  # app.js as it was yesterday
+$ git checkout stash -- app.js  # from a stash

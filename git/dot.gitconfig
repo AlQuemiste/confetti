@@ -1,0 +1,31 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+        name = AlQuemist
+	email = alquemist@Lyriks
+
+[alias]
+	co = commit
+	ps = push
+	pl = pull
+	st = status
+	ch = checkout
+	stv = status -v
+	sts = status -s -b
+	br = branch
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p
+
+[core]
+	# editor = emacs
+        # auto-convert CRLF line endings into LF and vice versa
+	autocrlf = input
+	whitespace = trailing-space, space-before-tab, tab-in-indent, indent-with-tab,\
+		     blank-at-eol, blank-at-eof
+
+[apply]
+        whitespace = warn
+
+[color]
+	ui = auto
