@@ -1,3 +1,10 @@
+# install linux firmware
+apt install firmware-linux
+
+# install build essentials
+apt install build-essential
+
+-----------------------------------------
 https://www.linuxquestions.org/questions/debian-26/howto-debian-7-wheezy-lxde-auto-numlock-both-before-and-after-login-4175500323/
 
 First, it is important to understand which Display Manager your system is running. You can find this out with the following command:
