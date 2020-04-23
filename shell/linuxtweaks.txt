@@ -4,6 +4,9 @@ apt install firmware-linux
 # install build essentials
 apt install build-essential
 
+# to build Emacs
+apt install build-essential texinfo libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk-3-dev libncurses-dev libgnutls28-dev librsvg-2
+
 -----------------------------------------
 https://www.linuxquestions.org/questions/debian-26/howto-debian-7-wheezy-lxde-auto-numlock-both-before-and-after-login-4175500323/
 
