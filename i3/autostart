@@ -1,16 +1,19 @@
 #!/bin/sh
 
-# Keybord layout setting
+## Keybord layout setting
 setxkbmap -model pc105 -layout us,ir -variant ,pes_keypad -option compose:menu,grp:caps_toggle &
 
-# Turns on the numlock key in X11
+## Turns on the numlock key in X11
 numlockx on &
 
 export PATH=$PATH:~/.local/bin: &
 
-# OSD
-LC_ALL=C dunst &
+## Notifications
+# LC_ALL=C dunst &
+# dunst &
 
-dunst &
+emacs --daemon &
+# redshift &
+# dropbox start
 
 # echo "Autostart completed" > /tmp/i3autostart.log & 
