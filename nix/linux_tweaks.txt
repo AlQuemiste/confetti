@@ -57,3 +57,7 @@ CUPS Printing
 
 sudo apt-get install cups
 # Navigate to http://localhost:631 for printer configuration
+
+--------------------------------------------
+* Show current keyboard layout:
+https://github.com/nonpop/xkblayout-state
