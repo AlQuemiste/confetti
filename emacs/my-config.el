@@ -307,3 +307,28 @@
   (setq lsp-keymap-prefix "C-c l")
    (add-hook 'python-mode-hook #'lsp-deferred)
    )
+
+;;;======================================================================
+;;; provide save-as functionality without renaming the current buffer
+;;; https://stackoverflow.com/a/5169028
+(defun save-as (new-filename)
+  (interactive "FFilename:")
+  (write-region (point-min) (point-max) new-filename)
+  (find-file-noselect new-filename))
+
+;;;======================================================================
+(defalias 'list-buffers 'ibuffer) ; always use ibuffer
+
+(defalias 'lml 'list-matching-lines)
+(defalias 'dml 'delete-matching-lines)
+(defalias 'dnml 'delete-non-matching-lines)
+(defalias 'dt 'delete-trailing-whitespace)
+
+(defalias 'g 'grep)
+(defalias 'gf 'grep-find)
+(defalias 'fd 'find-dired)
+
+(defalias 'rb 'revert-buffer)
+(defalias 'lcd 'list-colors-display)
+
+(defalias 'lf 'load-file)
