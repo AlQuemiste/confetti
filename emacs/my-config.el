@@ -2,16 +2,17 @@
 (require 'package) ;;
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
-(package-initialize) ;; You might already have this line
 
 ;; to declutter mode line
-(require 'delight)
- (delight '((abbrev-mode " Abv" abbrev)
-            (eldoc-mode nil eldoc)
-	    (company-mode " Co" company)
-            (overwrite-mode " Ov" t)
-	    (visual-line-mode nil simple)
-            (emacs-lisp-mode "eLisp" :major)))
+(when (require 'delight nil :noerror)
+  (delight '((abbrev-mode " Abv" abbrev)
+             (eldoc-mode nil eldoc)
+             (company-mode " Co" company)
+             (overwrite-mode " Ov" t)
+             (visual-line-mode nil simple)
+             (emacs-lisp-mode "eLisp" :major)))
+  )
+
 ;; minimal UI
 (setq inhibit-splash-screen t
       initial-scratch-message nil
@@ -69,16 +70,19 @@
 ;; activate Savehist mode to save only minibuffer histories
 (savehist-mode 0)
 
+(setq custom-theme-allow-multiple-selections nil)
+
+;; (add-to-list 'default-frame-alist
+;;              '(font . "Inconsolata-13"))
+
+(add-to-list 'default-frame-alist
+             '(font . "Inconsolata-16"))
+
 ;; column-enforce-mode in all source code modes: highlights text extending beyond a certain column.
 ;;(add-hook 'prog-mode-hook 'column-enforce-mode)
 
 ;; highlight-indent-guides in all source code modes
 ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-
-;; displays the current function on the mode line
-;; <https://stackoverflow.com/a/13141121>
-(require 'which-func)
-(which-function-mode t)
 
 ;; kill or copy the line point is on with a single keystroke:
 ;; C-w kills the current line
@@ -194,11 +198,16 @@
 ;(load "~/.emacs.d/cython-mode")
 
 ;; use company-mode in all buffers
-(add-hook 'after-init-hook 'global-company-mode)
+(when (require 'company nil :noerror)
+  (add-hook 'after-init-hook 'global-company-mode)
+
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.2) ;; default is 0.2
+  )
 
 ;; color in shell-command
 ;; https://stackoverflow.com/a/5821668
-(require 'ansi-color)
+;(require 'ansi-color)
 
 ;; Indentation and buffer cleanup
 ;; This re-indents, untabifies, and cleans up whitespace.
@@ -251,20 +260,13 @@
 (setq imaxima-fnt-size "Large")
 
 ;; reStructuredText
-(require 'rst)
-(setq auto-mode-alist
-       (append '(("\\.txt\\'" . rst-mode)
-                 ("\\.rst\\'" . rst-mode)
-                 ("\\.rest\\'" . rst-mode)) auto-mode-alist))
+(when (require 'rst nil :noerror)
+  (setq auto-mode-alist
+        (append '(("\\.md\\'" . rst-mode)
+                  ("\\.rst\\'" . rst-mode)
+                  ("\\.rest\\'" . rst-mode)) auto-mode-alist))
+  )
 
-
-(setq custom-theme-allow-multiple-selections nil)
-
-;; (add-to-list 'default-frame-alist
-;;              '(font . "Inconsolata-13"))
-
-(add-to-list 'default-frame-alist
-             '(font . "Inconsolata-14"))
 
 ;; SQL Upcase
  (when (require 'sql-upcase nil :noerror)
@@ -272,7 +274,9 @@
    (add-hook 'sql-interactive-mode-hook 'sql-upcase-mode))
 
 ;; Magit
-(global-set-key (kbd "C-x g") 'magit-status)
+ (when (require 'magit nil :noerror)
+   (global-set-key (kbd "C-x g") 'magit-status)
+   )
 
 ;; flycheck
 ;; (require 'flycheck)
@@ -298,11 +302,8 @@
 
 
 
-(setq company-minimum-prefix-length 1
-      company-idle-delay 0.2) ;; default is 0.2
-
-;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-(setq lsp-keymap-prefix "C-c l")
-
-(require 'lsp-mode)
-(add-hook 'python-mode-hook #'lsp-deferred)
+(when (require 'lsp-mode nil :noerror)
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+   (add-hook 'python-mode-hook #'lsp-deferred)
+   )
