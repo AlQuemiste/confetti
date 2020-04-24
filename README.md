@@ -1,2 +1,2 @@
 # confetti
-Miscellaneous config files for Linux.
+Miscellaneous configuration files for Linuxwerkzeuge.
