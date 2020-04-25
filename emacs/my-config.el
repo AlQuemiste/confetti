@@ -332,3 +332,9 @@
 (defalias 'lcd 'list-colors-display)
 
 (defalias 'lf 'load-file)
+
+;;;======================================================================
+(defun open-emacs-settings ()
+  """ open Emacs configuration folder """
+  (interactive)
+  (dired "$HOME/.emacs.d/"))
