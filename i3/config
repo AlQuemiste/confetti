@@ -190,7 +190,8 @@ bindsym XF86AudioMute exec amixer -q set Master mute
 bindsym $mod+Ctrl+e exec --no-startup-id gedit
 bindsym $mod+F10 exec --no-startup-id firefox
 bindsym $mod+F9 exec --no-startup-id thunar
-bindsym $mod+Ctrl+x exec --no-startup-id emacs
+#bindsym $mod+Ctrl+x exec --no-startup-id emacs
+bindsym $mod+F3 exec --no-startup-id emacsclient -nc
 
 # Increase brightness
 # needs <https://github.com/philippnormann/xrandr-brightness-script>
