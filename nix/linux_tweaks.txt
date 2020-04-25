@@ -62,9 +62,23 @@ sudo apt-get install cups
 * Show current keyboard layout:
 https://github.com/nonpop/xkblayout-state
 --------------------------------------------
-
 * Update alternatives
+
 update-alternatives --get-selections
 update-alternatives --config x-www-browser
 update-alternatives --config gnome-www-browser
 update-alternatives --config x-terminal-emulator
+--------------------------------------------
+
+* Firewall
+apt install firewalld
+systemctl enable firewalld
+reboot
+
+firewall-cmd --state
+firewall-cmd --get-default-zone
+firewall-cmd --get-active-zones
+firewall-cmd --list-all
+
+firewall-cmd --zone=home --change-interface=wlp2s0
+--------------------------------------------
