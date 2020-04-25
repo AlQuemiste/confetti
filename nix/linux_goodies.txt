@@ -15,4 +15,7 @@ fonts-inconsolata
 - IBM Plex:
 fonts-ibm-plex 
 - Bitstream
-ttf-bitstream-vera 
+ttf-bitstream-vera
+
+* Password-store: pass
+https://www.passwordstore.org/
