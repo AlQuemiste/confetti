@@ -82,3 +82,17 @@ firewall-cmd --list-all
 
 firewall-cmd --zone=home --change-interface=wlp2s0
 --------------------------------------------
+* Startup/Autostart applications:
+ls /etc/init.d
+
+- all autostart applications
+sudo find / -name "*autostart*"
+ls -1 "/etc/xdg/autostart" "/home/$USER/.config/autostart" "/usr/share/gdm/autostart"  "/usr/share/gnome/autostart"
+
+- all systemd services
+ls -1 /lib/systemd/system/*.service /etc/systemd/system/*.service
+--------------------------------------------
+* List of packages installed sorted by installation date
+<https://unix.stackexchange.com/questions/12578>
+
+grep " install " /var/log/dpkg.log
