@@ -12,10 +12,11 @@ pdftk, pdfcrop
 * fonts:
 - Inconsolata:
 fonts-inconsolata
-- IBM Plex:
-fonts-ibm-plex 
+- Google Exo2 font
 - Bitstream
 ttf-bitstream-vera
 
 * Password-store: pass
 https://www.passwordstore.org/
+
+* light image-viewer: feh
