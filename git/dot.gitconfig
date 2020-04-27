@@ -16,6 +16,9 @@
 	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
 	type = cat-file -t
 	dump = cat-file -p
+	logl = log --oneline --decorate --pretty=format:'%C(bold cyan)%h%Creset -%C(yellow)%d%Creset %s %C(dim green)(%ar) %C(dim white)<%an>%Creset'
+        # <abbrev commit hash> - <commit subject> <author date (relative)> <author name>
+
 
 [core]
 	# editor = emacs
