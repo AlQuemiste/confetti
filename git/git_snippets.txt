@@ -44,3 +44,9 @@ $ git checkout experiment -- app.js
 $ git checkout experiment@{2}:app.js  # app.js two commits ago
 $ git checkout experiment@{yesterday}:app.js  # app.js as it was yesterday
 $ git checkout stash -- app.js  # from a stash
+
+# create a local branch from an existing remote branch
+# <https://stackoverflow.com/a/48840672>
+1. git remote add <remote_name> <repo_url>
+2. git fetch <remote_name>
+3. git checkout -b <new_branch_name> <remote_name>/<remote_branch_name>
