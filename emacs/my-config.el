@@ -59,8 +59,8 @@
 (global-visual-line-mode t)
 
 ;; copy expansions verbatim; do not match the case
-(setq dabbrev-case-replace nil)
-(setq case-replace nil)
+;; (setq dabbrev-case-replace nil)
+;; (setq case-replace nil)
 
 ;; turn on paren match highlighting
 (show-paren-mode 1)
@@ -77,6 +77,10 @@
 
 (add-to-list 'default-frame-alist
              '(font . "Inconsolata-16"))
+
+
+;; delete trailing whitespace before save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; column-enforce-mode in all source code modes: highlights text extending beyond a certain column.
 ;;(add-hook 'prog-mode-hook 'column-enforce-mode)
