@@ -82,6 +82,9 @@
 ;; delete trailing whitespace before save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; automatically kill running processes on exit
+(setq confirm-kill-processes nil)
+
 ;; column-enforce-mode in all source code modes: highlights text extending beyond a certain column.
 ;;(add-hook 'prog-mode-hook 'column-enforce-mode)
 
