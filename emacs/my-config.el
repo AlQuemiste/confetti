@@ -85,6 +85,9 @@
 ;; automatically kill running processes on exit
 (setq confirm-kill-processes nil)
 
+;; enable CamelCase-aware editing for all programming modes
+(add-hook 'prog-mode-hook 'subword-mode)
+
 ;; column-enforce-mode in all source code modes: highlights text extending beyond a certain column.
 ;;(add-hook 'prog-mode-hook 'column-enforce-mode)
 
