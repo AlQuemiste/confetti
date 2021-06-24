@@ -355,6 +355,10 @@
   (interactive)
   (dired "$HOME/.emacs.d/"))
 
+(defun :my ()
+  (interactive)
+  (dired "/home/ammar/myfolder"))
+
 (defun grcpp ()
   "Run grep recursively from the directory of the current buffer or the default directory"
   (interactive)
