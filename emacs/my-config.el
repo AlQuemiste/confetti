@@ -295,8 +295,8 @@
    )
 
 ;; flycheck
-;; (require 'flycheck)
-;; (global-flycheck-mode)
+(require 'flycheck)
+(global-flycheck-mode)
 
 ;; CMake
 (setq auto-mode-alist
