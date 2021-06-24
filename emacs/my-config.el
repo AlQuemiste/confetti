@@ -354,3 +354,16 @@
   """ open Emacs configuration folder """
   (interactive)
   (dired "$HOME/.emacs.d/"))
+
+(defun grcpp ()
+  "Run grep recursively from the directory of the current buffer or the default directory"
+  (interactive)
+  (let* (
+	(dir (file-name-directory (or load-file-name buffer-file-name default-directory)))
+	(cmd
+	 (read-from-minibuffer "Run grep (like this): "
+	   (cons (concat "grep --color -nH -r --null --include=*.{cpp,h,hpp} -e  " dir) 55)))
+	)
+    ;--IN--
+    (grep cmd))
+  )
