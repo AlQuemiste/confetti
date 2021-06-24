@@ -22,6 +22,12 @@
 (tool-bar-mode -1)
 (tooltip-mode -1)
 
+;; newline indent for CC mode
+(setq-default c-basic-offset 4)
+
+;; suppress indentation within C++ namespaces
+(c-set-offset 'innamespace 0)
+
 ;; disable backup files
 (setq auto-save-default nil) ; stop creating #autosave# files
 ;; backup
