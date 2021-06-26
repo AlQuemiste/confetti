@@ -3,6 +3,8 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 
+(require 'use-package)
+
 ;; to declutter mode line
 (when (require 'delight nil :noerror)
   (delight '((abbrev-mode " Abv" abbrev)
