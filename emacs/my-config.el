@@ -64,9 +64,12 @@
 ;; Visual-Line-Mode wraps a line right before the window edge, but ultimately they do not alter the buffer text.
 (global-visual-line-mode t)
 
-;; copy expansions verbatim; do not match the case
-;; (setq dabbrev-case-replace nil)
-;; (setq case-replace nil)
+;; control whether dabbrev searches should ignore case (nil means case is significant)
+(setq dabbrev-case-fold-search t)
+
+;; copy expansions verbatim; do match the case
+(setq case-replace nil)
+(setq dabbrev-case-replace nil)
 
 ;; turn on paren match highlighting
 (show-paren-mode 1)
