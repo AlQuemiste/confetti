@@ -222,12 +222,26 @@
 ;; Cython mode
 ;(load "~/.emacs.d/cython-mode")
 
-;; use company-mode in all buffers
-(when (require 'company nil :noerror)
-  (add-hook 'after-init-hook 'global-company-mode)
+(use-package company
+  :ensure t
+  :diminish company-mode
+  ;; bind to `C-.`
+  :bind (("C-." . company-complete))
+  :init
+  (add-hook 'after-init-hook #'global-company-mode)
+  )
 
-  (setq company-minimum-prefix-length 1
-        company-idle-delay 0.2) ;; default is 0.2
+(use-package company-dabbrev
+  :init
+  (setq company-dabbrev-ignore-case nil
+        ;; don't downcase dabbrev suggestions
+        company-dabbrev-downcase nil)
+  )
+
+(use-package company-dabbrev-code
+  :init
+  (setq company-dabbrev-code-modes t
+        company-dabbrev-code-ignore-case nil)
   )
 
 ;; color in shell-command
