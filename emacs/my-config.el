@@ -387,15 +387,15 @@
   (interactive)
   (dired "/home/ammar/myfolder"))
 
-(defun grcpp ()
+(defun grc ()
   "Run grep recursively from the directory of the current buffer or the default directory"
   (interactive)
   (let* (
-	(dir (file-name-directory (or load-file-name buffer-file-name default-directory)))
-	(cmd
-	 (read-from-minibuffer "Run grep (like this): "
-	   (cons (concat "grep --color -nH -r --null --include=*.{cpp,h,hpp} -e  " dir) 55)))
-	)
-    ;--IN--
-    (grep cmd))
+         (dir_ (file-name-directory (or load-file-name buffer-file-name default-directory)))
+         (msg_ (concat "grep --color --null -nHr --include=*.{cpp,hpp,c,h} " dir_ " -e "))
+         (cmd_
+          (read-from-minibuffer "Run grep (like this): " msg_ ))
+        )
+    ;--in--
+    (grep cmd_))
   )
