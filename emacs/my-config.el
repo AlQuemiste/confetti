@@ -271,6 +271,10 @@
 
 (global-set-key (kbd "C-c C") 'cleanup-buffer)
 
+;; Use super + arrow keys to switch windows
+;; https://stackoverflow.com/a/96540/3484761
+(windmove-default-keybindings 'super)
+
 ;; YAML
 ;; Add additional file extensions that trigger yaml-mode.
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
