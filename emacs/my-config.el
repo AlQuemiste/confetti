@@ -356,6 +356,27 @@
    (add-hook 'python-mode-hook #'lsp-deferred)
    )
 
+
+;; CEDET configuration
+;; ref: https://www.emacswiki.org/emacs/CEDET_Quickstart
+
+;; Enable EDE (Project Management) features
+(global-ede-mode t)
+
+;; Semantic
+(require 'semantic)
+
+(global-semanticdb-minor-mode t)
+(global-semantic-idle-scheduler-mode t)
+(global-semantic-idle-completions-mode t)
+(global-semantic-highlight-func-mode t)
+(global-semantic-show-unmatched-syntax-mode t)
+
+(semantic-mode 1)
+
+;; (semantic-load-enable-excessive-code-helpers) ; Enable prototype help and smart completion
+;;(global-srecode-minor-mode 1) ; Enable template insertion menu
+
 ;;;======================================================================
 ;;; provide save-as functionality without renaming the current buffer
 ;;; https://stackoverflow.com/a/5169028
