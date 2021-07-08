@@ -322,8 +322,9 @@
    )
 
 ;; flycheck
-(require 'flycheck)
-(global-flycheck-mode)
+(when (require 'flycheck nil :noerror)
+  (global-flycheck-mode)
+  )
 
 ;; CMake
 (setq auto-mode-alist
