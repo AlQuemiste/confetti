@@ -222,27 +222,31 @@
 ;; Cython mode
 ;(load "~/.emacs.d/cython-mode")
 
-(use-package company
-  :ensure t
-  :diminish company-mode
-  ;; bind to `C-.`
-  :bind (("C-." . company-complete))
-  :init
-  (add-hook 'after-init-hook #'global-company-mode)
-  )
 
-(use-package company-dabbrev
-  :init
-  (setq company-dabbrev-ignore-case nil
-        ;; don't downcase dabbrev suggestions
-        company-dabbrev-downcase nil)
-  )
+ (when (require 'company nil :noerror)
+   (progn
+     (use-package company
+       :ensure t
+       :diminish company-mode
+                                        ; bind to `C-.`
+       :bind (("C-." . company-complete))
+       :init
+       (add-hook 'after-init-hook #'global-company-mode)
+       )
+     (use-package company-dabbrev
+       :init
+       (setq company-dabbrev-ignore-case nil
+                                        ; don't downcase dabbrev suggestions
+             company-dabbrev-downcase nil)
+       )
 
-(use-package company-dabbrev-code
-  :init
-  (setq company-dabbrev-code-modes t
-        company-dabbrev-code-ignore-case nil)
-  )
+     (use-package company-dabbrev-code
+       :init
+       (setq company-dabbrev-code-modes t
+             company-dabbrev-code-ignore-case nil)
+       )
+     )
+   )
 
 ;; color in shell-command
 ;; https://stackoverflow.com/a/5821668
