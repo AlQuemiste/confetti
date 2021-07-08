@@ -1,7 +1,7 @@
 ;; MELPA package
-(require 'package) ;;
+(require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
 (require 'use-package)
 
