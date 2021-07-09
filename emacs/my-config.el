@@ -292,6 +292,10 @@
          (with-current-buffer buf
            (ansi-color-apply-on-region (point-min) (point-max))))))
 
+; interpret and use ansi color codes in shell buffers
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+(add-hook 'diff-mode-hook 'ansi-color-for-comint-mode-on)
+
 ;; set Python shell interpreter for 'run-python'
 (setq python-shell-interpreter "/usr/bin/python3")
 
