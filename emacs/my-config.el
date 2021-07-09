@@ -304,6 +304,19 @@
     (ansi-color-apply-on-region compilation-filter-start (point-max))))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+(custom-set-variables
+ '(compile-command "make -j8 -k")
+ '(compilation-scroll-output t)   ; follow compilation output
+ '(compilation-always-kill t)     ; always kill a running compilation before starting a new one
+ '(compilation-skip-threshold 2)  ; next-error should only stop at errors
+ '(electric-indent-mode nil)
+ '(which-function-mode t)
+ '(read-file-name-completion-ignore-case t)
+ '(show-trailing-whitespace t)  ; highlight trailing whitespace
+ ;; history
+ '(history-length 1000)   ; max length for minibuffer history vars
+ '(history-delete-duplicates t)
+)
 ;; set Python shell interpreter for 'run-python'
 (setq python-shell-interpreter "/usr/bin/python3")
 
