@@ -383,8 +383,8 @@
    )
 
 
-;; CEDET configuration
-;; ref: https://www.emacswiki.org/emacs/CEDET_Quickstart
+;;===  CEDET configuration ===
+;; ref: <http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html>
 
 ;; Enable EDE (Project Management) features
 (global-ede-mode t)
@@ -392,16 +392,47 @@
 ;; Semantic
 (require 'semantic)
 
-(global-semanticdb-minor-mode t)
-(global-semantic-idle-scheduler-mode t)
-(global-semantic-idle-completions-mode t)
-(global-semantic-highlight-func-mode t)
-(global-semantic-show-unmatched-syntax-mode t)
+;; ref: <http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html>
 
-(semantic-mode 1)
+;; enable global support for Semanticdb
+(global-semanticdb-minor-mode)
+
+;; activates automatic parsing of source code in the idle time
+(global-semantic-idle-scheduler-mode)
+
+;; activate highlighting of first line for current tag (function, class, etc.)
+(global-semantic-highlight-func-mode)
+
+;; activate use of separate styles for tags decoration (depending on tag's class)
+; (global-semantic-decoration-mode)
+
+;; activate highlighting of local names that are the same as name of tag under cursor
+(global-semantic-idle-local-symbol-highlight-mode)
+
+;; activates displaying of possible name completions in the idle time. Requires that global-semantic-idle-scheduler-mode was enabled
+(global-semantic-idle-completions-mode)
+
+;; activates displaying of information about current tag in the idle time. Requires that global-semantic-idle-scheduler-mode was enabled.
+; (global-semantic-idle-summary-mode)
 
 ;; (semantic-load-enable-excessive-code-helpers) ; Enable prototype help and smart completion
+
 ;;(global-srecode-minor-mode 1) ; Enable template insertion menu
+
+(semantic-mode t)
+
+(require 'semantic/ia)
+
+;; Semantic can automatically find directory of GCC and the include files
+(require 'semantic/bovine/gcc)
+
+(defun my-cedet-hook ()
+  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
+  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
+  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle))
+
+(add-hook 'c-mode-common-hook 'my-cedet-hook)
 
 ;;;======================================================================
 ;;; provide save-as functionality without renaming the current buffer
