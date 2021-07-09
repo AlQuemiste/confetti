@@ -473,10 +473,13 @@
   "Run grep recursively from the directory of the current buffer or the default directory"
   (interactive)
   (let* (
-         (dir_ (file-name-directory (or load-file-name buffer-file-name default-directory)))
-         (msg_ (concat "grep --color --null -nHr --include=*.{cpp,hpp,c,h} " dir_ " -e "))
+         (dir_ (file-name-directory
+		(or load-file-name buffer-file-name default-directory)))
+         (msg0 (concat "grep --color -nHr --include=*.{cpp,hpp,c,h} -e "))
+	 (msg0ln (+ 1 (length msg0)))
+	 (msg_ (concat msg0 "  -- " dir_))
          (cmd_
-          (read-from-minibuffer "Run grep (like this): " msg_ ))
+          (read-from-minibuffer "Run grep (like this): " (cons msg_ msg0ln)))
         )
     ;--in--
     (grep cmd_))
