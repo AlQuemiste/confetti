@@ -147,7 +147,7 @@
 ;(global-set-key [f3] 'isearch-forward)
 ;(global-set-key [f4] 'next-error)
 ;(global-set-key [f5] 'gdb)
-;(global-set-key [f6] 'compile)
+(global-set-key (kbd "C-c @") 'compile)
 ;(global-set-key [f7] 'recompile)
 ;(global-set-key [f8] 'shell)
 ;(global-set-key [f9] 'find-next-matching-tag)
