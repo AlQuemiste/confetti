@@ -485,22 +485,22 @@
   "Run C++-grep recursively from the directory of the current buffer or the default directory"
   (interactive)
   (let* (
-	 ;; current directory
+         ;; current directory
          (dir_ (file-name-directory
-		(or load-file-name buffer-file-name default-directory)))
-	 ;; add a list of excluded directories
-	 (excluded-dirs "build,3rdparty")
-	 (extensions "cpp,hpp,c,h")
-	 ;; build grep command
-	 (excluded (concat "--exclude-dir={" excluded-dirs "}"))
-	 (included (concat "--include=*.{" extensions "}"))
+                (or load-file-name buffer-file-name default-directory)))
+         ;; add a list of excluded directories
+         (excluded-dirs "build,3rdparty")
+         (extensions "cpp,hpp,c,h")
+         ;; build grep command
+         (excluded (concat "--exclude-dir={" excluded-dirs "}"))
+         (included (concat "--include=*.{" extensions "}"))
          (msg0 (concat included " " excluded " -e "))
-	 (msg0ln (+ 1 (length msg0)))
-	 (msg_ (concat msg0 "  -- " dir_))
-	 ;; ask user for the grep pattern
+         (msg0ln (+ 1 (length msg0)))
+         (msg_ (concat msg0 "  -- " dir_))
+         ;; ask user for the grep pattern
          (cmd_ (concat "grep --color -nHr "
-		       (read-from-minibuffer "c++-grep: " (cons msg_ msg0ln)))
-	       )
+                       (read-from-minibuffer "c++-grep: " (cons msg_ msg0ln)))
+               )
          )
     ;--in--
     (grep cmd_)
