@@ -346,6 +346,7 @@
  (when (require 'magit nil :noerror)
    (global-set-key (kbd "C-x g") 'magit-status)
    (setq git-commit-summary-max-length 80)
+   (setq auto-revert-verbose t) ; report when a buffer has been reverted
    )
 
 ;; flycheck
