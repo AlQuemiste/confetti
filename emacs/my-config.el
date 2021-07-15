@@ -78,7 +78,7 @@
   )
 
 ;; turn on paren match highlighting
-(show-paren-mode 1)
+(show-paren-mode t)
 
 (setq comment-inline-offset 2)
 
@@ -223,30 +223,27 @@
 ;(load "~/.emacs.d/cython-mode")
 
 
- (when (require 'company nil :noerror)
-   (progn
-     (use-package company
-       :ensure t
-       :diminish company-mode
-                                        ; bind to `C-.`
-       :bind (("C-." . company-complete))
-       :init
-       (add-hook 'after-init-hook #'global-company-mode)
-       )
-     (use-package company-dabbrev
-       :init
-       (setq company-dabbrev-ignore-case nil
-                                        ; don't downcase dabbrev suggestions
-             company-dabbrev-downcase nil)
-       )
+; (use-package company
+;   :ensure t
+;   :diminish company-mode
+;   ; bind to `C-.`
+;   :bind (("C-." . company-complete))
+;   :init
+;   (add-hook 'after-init-hook #'global-company-mode)
+;   )
 
-     (use-package company-dabbrev-code
-       :init
-       (setq company-dabbrev-code-modes t
-             company-dabbrev-code-ignore-case nil)
-       )
-     )
-   )
+; (use-package company-dabbrev
+;   :init
+;   (setq company-dabbrev-ignore-case nil
+;         ; don't downcase dabbrev suggestions
+;         company-dabbrev-downcase nil)
+;   )
+
+; (use-package company-dabbrev-code
+;   :init
+;   (setq company-dabbrev-code-modes t
+;         company-dabbrev-code-ignore-case nil)
+;   )
 
 ;; color in shell-command
 ;; https://stackoverflow.com/a/5821668
@@ -304,18 +301,18 @@
     (ansi-color-apply-on-region compilation-filter-start (point-max))))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
-(custom-set-variables
- '(compile-command "make -j8 -k")
- '(compilation-scroll-output t)   ; follow compilation output
- '(compilation-always-kill t)     ; always kill a running compilation before starting a new one
- '(compilation-skip-threshold 2)  ; next-error should only stop at errors
- '(electric-indent-mode nil)
- '(which-function-mode t)
- '(read-file-name-completion-ignore-case t)
- '(show-trailing-whitespace t)  ; highlight trailing whitespace
+(setq
+ compile-command "make -j8"
+ compilation-scroll-output nil   ; ON = follow compilation output
+ compilation-always-kill t     ; always kill a running compilation before starting a new one
+ compilation-skip-threshold 2  ; next-error should only stop at errors
+ electric-indent-mode nil
+ which-function-mode t
+ read-file-name-completion-ignore-case t
+ show-trailing-whitespace t  ; highlight trailing whitespace
  ;; history
- '(history-length 1000)   ; max length for minibuffer history vars
- '(history-delete-duplicates t)
+ history-length 1000   ; max length for minibuffer history vars
+ history-delete-duplicates t
 )
 ;; set Python shell interpreter for 'run-python'
 (setq python-shell-interpreter "/usr/bin/python3")
