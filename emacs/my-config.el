@@ -389,32 +389,42 @@
 ;; Semantic
 (require 'semantic)
 
-;; ref: <http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html>
+;; ref: https://writequit.org/denver-emacs/presentations/2017-02-21-semantic-mode.html
+(setq semantic-default-submodes
+      '(; perform semantic actions during idle time
+        global-semantic-idle-scheduler-mode
+        ; use a semantic database of parsed tags
+        global-semanticdb-minor-mode
+        ; decorate buffers with additional semantic information
+        global-semantic-decoration-mode
+        ; highlight the name of the current tag (function, class, etc.)
+        global-semantic-highlight-func-mode
+        ; show the name of the function at the top in a sticky
+        global-semantic-stickyfunc-mode
+        ; generate a summary of the current tag when idle
+        global-semantic-idle-summary-mode
+        ; show a breadcrumb of location during idle time
+        global-semantic-idle-breadcrumbs-mode
+        ; switch to recently changed tags with `semantic-mrub-switch-tags', or `C-x B'
+        global-semantic-mru-bookmark-mode
+        ; highligh local names that are the same as name of tag under cursor
+        global-semantic-idle-local-symbol-highlight-mode
+        ; display possible name completions in the idle time. Requires that global-semantic-idle-scheduler-mode was enabled
+        global-semantic-idle-completions-mode
+        ; activate CEDET's context menu that is bound to right mouse button
+        global-cedet-m3-minor-mode
+        )
+      )
 
-;; enable global support for Semanticdb
-(global-semanticdb-minor-mode)
+; (add-hook 'c-mode-hook 'semantic-mode)
+; (add-hook 'python-mode-hook 'semantic-mode)
 
-;; activates automatic parsing of source code in the idle time
-(global-semantic-idle-scheduler-mode)
-
-;; activate highlighting of first line for current tag (function, class, etc.)
-(global-semantic-highlight-func-mode)
-
-;; activate use of separate styles for tags decoration (depending on tag's class)
-; (global-semantic-decoration-mode)
-
-;; activate highlighting of local names that are the same as name of tag under cursor
-(global-semantic-idle-local-symbol-highlight-mode)
-
-;; activates displaying of possible name completions in the idle time. Requires that global-semantic-idle-scheduler-mode was enabled
-(global-semantic-idle-completions-mode)
-
-;; activates displaying of information about current tag in the idle time. Requires that global-semantic-idle-scheduler-mode was enabled.
-; (global-semantic-idle-summary-mode)
+(add-hook 'prog-mode-hook 'semantic-mode)
 
 ;; (semantic-load-enable-excessive-code-helpers) ; Enable prototype help and smart completion
 
-;;(global-srecode-minor-mode 1) ; Enable template insertion menu
+;; SRecode
+;(global-srecode-minor-mode t) ; Enable template insertion menu
 
 (semantic-mode t)
 
@@ -427,7 +437,12 @@
   (local-set-key [(control return)] 'semantic-ia-complete-symbol)
   (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle))
+  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+  (local-set-key "\C-cd" 'semantic-ia-show-doc)
+  (local-set-key "\C-co" 'eassist-switch-h-cpp)
+  (local-set-key "\C-cm" 'eassist-list-methods)
+  (local-set-key "\C-c\C-r" 'semantic-symref)
+)
 
 (add-hook 'c-mode-common-hook 'my-cedet-hook)
 
