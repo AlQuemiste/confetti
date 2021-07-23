@@ -334,7 +334,56 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'diff-mode-hook 'ansi-color-for-comint-mode-on)
 
-;;=== Compilation
+;=== CC mode
+;; newline indent for CC mode
+(use-package cc-mode
+  :config
+  (progn
+    (setq-default c-basic-offset 4)
+    (setq c-default-style "linux")
+    )
+)
+
+;; suppress indentation within C++ namespaces
+(c-set-offset 'innamespace 0)
+
+;; enable CamelCase-aware editing for all programming modes
+(add-hook 'prog-mode-hook 'subword-mode)
+
+;; column-enforce-mode in all source code modes: highlights text extending beyond a certain column.
+; (add-hook 'prog-mode-hook 'column-enforce-mode)
+
+;; highlight-indent-guides in all source code modes
+;(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+
+;; switch to specific buffers
+
+(defun bury-then-switch-to-buffer (buffer)
+  (bury-buffer (current-buffer))
+  (switch-to-buffer buffer)
+  )
+
+(defun switch-to-scratch ()
+  (interactive)
+  (bury-then-switch-to-buffer "*scratch*")
+  )
+
+(defun switch-to-compilation ()
+  (interactive)
+  (bury-then-switch-to-buffer "*compilation*")
+  )
+
+(defun switch-to-shell ()
+  (interactive)
+  (bury-then-switch-to-buffer "*shell*")
+  )
+
+; (global-set-key (kbd "C-*") 'switch-to-scratch)
+(global-set-key (kbd "C-c *") 'switch-to-compilation)
+(global-set-key (kbd "C-c !") 'switch-to-shell)
+
+
+;=== Compilation
 ;; interpret ANSI color codes in compilation buffers
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
@@ -347,14 +396,19 @@
  compilation-scroll-output nil   ; ON = follow compilation output
  compilation-always-kill t     ; always kill a running compilation before starting a new one
  compilation-skip-threshold 2  ; next-error should only stop at errors
- electric-indent-mode nil
+ electric-indent-mode t
  which-function-mode t
  read-file-name-completion-ignore-case t
  show-trailing-whitespace t  ; highlight trailing whitespace
  ;; history
- history-length 1000   ; max length for minibuffer history vars
+ history-length 100   ; max length for minibuffer history vars
  history-delete-duplicates t
-)
+ )
+
+;; the characters that whitespace-mode should highlight
+; (setq whitespace-style '(tabs newline space-mark
+;                          tab-mark newline-mark
+;                          face lines-tail))
 ;; set Python shell interpreter for 'run-python'
 (setq python-shell-interpreter "/usr/bin/python3")
 
