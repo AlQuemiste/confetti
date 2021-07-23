@@ -144,6 +144,31 @@
      (message "Copied line")
      (list (line-beginning-position) (line-beginning-position 2)))))
 
+;;--- Add dired-mode functions to open/view multiple files
+(require 'dired )
+
+;; dired
+(setq dired-listing-switches "-agho --group-directories-first"
+      delete-by-moving-to-trash t)
+
+;; ignore case when using completion for file names
+(setq read-file-name-completion-ignore-case t)
+
+(defun my-dired-find-files ()
+  "Open each of the marked files"
+  (interactive)
+  (mapc 'find-file (dired-get-marked-files))
+  )
+
+(defun my-dired-view-files ()
+  "View each of the marked files"
+  (interactive)
+  (mapc 'view-file (dired-get-marked-files))
+  )
+
+(define-key dired-mode-map "F" 'my-dired-find-files)
+(define-key dired-mode-map "V" 'my-dired-view-files)
+
 ;; abbreviation mode
 ;(setq-default abbrev-mode t)
 ;(load "~/.emacs.d/my_emacs_abbrev")
