@@ -542,11 +542,11 @@
 ;; ref: https://writequit.org/denver-emacs/presentations/2017-02-21-semantic-mode.html
 (setq semantic-default-submodes
       '(; perform semantic actions during idle time
-        global-semantic-idle-scheduler-mode
+        ;; global-semantic-idle-scheduler-mode
         ; use a semantic database of parsed tags
-        global-semanticdb-minor-mode
+        ;; global-semanticdb-minor-mode
         ; decorate buffers with additional semantic information
-        global-semantic-decoration-mode
+        ;; global-semantic-decoration-mode
         ; highlight the name of the current tag (function, class, etc.)
         global-semantic-highlight-func-mode
         ; show the name of the function at the top in a sticky
@@ -576,25 +576,34 @@
 ;; SRecode
 ;(global-srecode-minor-mode t) ; Enable template insertion menu
 
-(semantic-mode t)
-
 (require 'semantic/ia)
 
 ;; Semantic can automatically find directory of GCC and the include files
 (require 'semantic/bovine/gcc)
 
-(defun my-cedet-hook ()
-  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
-  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  (local-set-key "\C-cd" 'semantic-ia-show-doc)
-  (local-set-key "\C-co" 'eassist-switch-h-cpp)
-  (local-set-key "\C-cm" 'eassist-list-methods)
-  (local-set-key "\C-c\C-r" 'semantic-symref)
-)
+(global-set-key [(control return)] 'semantic-ia-complete-symbol)
+(global-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
+(global-set-key "\C-c>" 'semantic-complete-analyze-inline)
+(global-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+(global-set-key "\C-cd" 'semantic-ia-show-doc)
+(global-set-key "\C-co" 'eassist-switch-h-cpp)
+(global-set-key "\C-cm" 'eassist-list-methods)
+(global-set-key "\C-c\C-r" 'semantic-symref)
 
-(add-hook 'c-mode-common-hook 'my-cedet-hook)
+;; (defun my-cedet-hook ()
+;;   (local-set-key [(control return)] 'semantic-ia-complete-symbol)
+;;   (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
+;;   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+;;   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+;;   (local-set-key "\C-cd" 'semantic-ia-show-doc)
+;;   (local-set-key "\C-co" 'eassist-switch-h-cpp)
+;;   (local-set-key "\C-cm" 'eassist-list-methods)
+;;   (local-set-key "\C-c\C-r" 'semantic-symref)
+;; )
+
+;; (add-hook 'c-mode-hook 'my-cedet-hook)
+
+(semantic-mode t)
 
 ;;;======================================================================
 ;;; provide save-as functionality without renaming the current buffer
