@@ -479,6 +479,56 @@
    (add-hook 'python-mode-hook #'lsp-deferred)
    )
 
+;==== Abbrev
+;; ref:
+;; https://www.oreilly.com/library/view/learning-gnu-emacs/1565921526/ch04s04.html
+;; http://ergoemacs.org/emacs/emacs_abbrev_mode_tutorial.html
+
+;;; sample abbrev definitions
+;; ref: https://emacs.stackexchange.com/a/14081
+
+;; do not insert the expansion character when inserting abbrev
+;; ref: https://www.emacswiki.org/emacs/AbbrevMode#h5o-7
+(defun dont-insert-expansion-char ()  t)  ; "hook" function
+(put 'dont-insert-expansion-char 'no-self-insert t)  ; the hook should have a "no-self-insert"-property set
+
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+    ("inc"    "#include <" dont-insert-expansion-char nil)
+    ("inl"    "#include \"" dont-insert-expansion-char nil)
+    ("IF"     "#if" nil)
+    ("IFD"    "#ifdef" nil)
+    ("IFN"    "#ifndef" nil)
+    ("EL"     "#else //" nil)
+    ("EIF"    "#endif //" nil)
+    ("main2"  "int main(int argc, char* argv[])\n{\nreturn 0;\n}" dont-insert-expansion-char nil)
+    ("main"  "int main()\n{\nreturn 0;\n}" dont-insert-expansion-char nil)
+    ("el"     "else {\n}" dont-insert-expansion-char nil)
+    ("elif"   "else if {\n}" dont-insert-expansion-char nil)
+    ("whl"    "while() {\n}" dont-insert-expansion-char nil)
+    ("prn"    "printf(\"\")" dont-insert-expansion-char nil)
+    ("nmsp"   "namespace {\n} // namespace" dont-insert-expansion-char nil)
+    ("qo"     "std::cout <<" nil)
+    ("nd"     "std::endl" dont-insert-expansion-char nil)
+    ("sz"     "std::size_t" nil)
+    ("vc"     "std::vector" nil)
+    ("st"     "std::string" nil)
+    ("ct"     "const" nil)
+    ("scast"  "static_cast<" dont-insert-expansion-char)
+    ("uqp"    "std::unique_ptr<" dont-insert-expansion-char nil)
+    ("mkuq"   "std::make_unique<" dont-insert-expansion-char nil)
+    ("shp"    "std::make_unique<" dont-insert-expansion-char nil)
+    ("mksh"   "std::make_unique<" dont-insert-expansion-char nil)
+    ("dbgpr"  "std::cout << \"AN>> \" << __FILE__ << \", L\" <<  __LINE__ << \": \" << __FUNCTION__ << \":\\n\"\n<< std::endl;" dont-insert-expansion-char nil)
+    )
+  ; :regexp "\\(#`[0-9A-Za-z._-]+\\)"
+  :system t
+  :case-fixed t  ; case of the abbrev’s name is significant
+  )
+
+(setq-default abbrev-mode t)
+(setq abbrev-file-name "~/.emacs.d/abbrev_defs")
+;(read-abbrev-file "~/.abbrev_defs")
 
 ;;===  CEDET configuration ===
 ;; ref: <http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html>
