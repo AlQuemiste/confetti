@@ -18,17 +18,33 @@
 ;; minimal UI
 (setq inhibit-splash-screen t
       initial-scratch-message nil
-      initial-major-mode 'fundamental-mode)
+      initial-major-mode 'fundamental-mode
+      scroll-bar-mode nil
+      tool-bar-mode nil
+      tooltip-mode nil ; disable tooltip appearance on mouse hover
+)
 
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
+;; Editing
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode nil) ; use spaces instead of tabs for indentation
+(setq-default scroll-step 1) ; scroll 1 line at a time
+(setq line-move-visual t)
+(setq-default fill-column 80)
 
-;; newline indent for CC mode
-(setq-default c-basic-offset 4)
+;; ESC cancels all
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; suppress indentation within C++ namespaces
-(c-set-offset 'innamespace 0)
+;; Narrowing
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-defun  'disabled nil)
+(put 'narrow-to-page   'disabled nil)
+
+;; Upper/lower case conversion
+(put 'upcase-region   'disabled nil)
+(put 'downcase-region 'disabled nil)
+
+;; Unset suspend key chord
+(global-unset-key (kbd "C-z")) ; bound to `suspend-frame' by default
 
 ;; disable backup files
 (setq auto-save-default nil) ; stop creating #autosave# files
@@ -45,8 +61,8 @@
    version-control t  ; use versioned backups
    )
 
-;; Enable visible bell
-(setq visible-bell t)
+;; Enable/disable visible bell
+(setq visible-bell nil)
 
 (line-number-mode t)    ; makes the line number show up
 (column-number-mode t)  ; makes the column number show up
