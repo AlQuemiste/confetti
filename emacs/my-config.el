@@ -409,6 +409,10 @@
 ; (setq whitespace-style '(tabs newline space-mark
 ;                          tab-mark newline-mark
 ;                          face lines-tail))
+
+;; set default connection mode to SSH
+(setq tramp-default-method "ssh")
+
 ;; set Python shell interpreter for 'run-python'
 (setq python-shell-interpreter "/usr/bin/python3")
 
