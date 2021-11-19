@@ -31,6 +31,11 @@
 (setq line-move-visual t)
 (setq-default fill-column 80)
 
+;; proper bell sound for Emacs
+;; ref: <https://www.gnu.org/software/emacs/manual/html_node/efaq/Turning-the-volume-down.html>
+;; add the following to `.bashrc` or `.xinitrc`:
+;; xset b 2 1 200
+
 ;; ESC cancels all
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
