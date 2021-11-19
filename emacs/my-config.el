@@ -26,6 +26,7 @@
 
 ;; Editing
 (setq-default tab-width 4)
+(setq-default cmake-tab-width 4)
 (setq-default indent-tabs-mode nil) ; use spaces instead of tabs for indentation
 (setq-default scroll-step 1) ; scroll 1 line at a time
 (setq line-move-visual t)
