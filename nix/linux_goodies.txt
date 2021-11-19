@@ -20,3 +20,15 @@ ttf-bitstream-vera
 https://www.passwordstore.org/
 
 * light image-viewer: feh
+imagemagick
+libtiff-dev
+texlive texlive-extra-utils texlive-latex-extra texlive-bibtex-extra
+gnutls-bin # for Emacs
+zeal
+
+# static code analysis for C++
+clang-tidy
+
+* dpkg
+dpkg -s <package-name>
+dpkg -L <package-name>
