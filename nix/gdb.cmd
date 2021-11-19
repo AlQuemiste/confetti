@@ -17,3 +17,18 @@ set logging file /tmp/dbg.log
 set logging redirect on
 
 run $HOME/Projects/nsxtool/test/python/TestExperimentFileIO.py > /tmp/dbgout.log
+
+# We can use 'catch throw' in gdb and call 'backtrace' for every single thrown exception. That allows seeing the backtrace of all exceptions that are thrown, including the last uncaught one:
+
+gdb>
+
+https://stackoverflow.com/a/26695274
+
+set pagination off
+catch throw
+commands
+> backtrace
+> continue
+> end
+
+run
