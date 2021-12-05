@@ -1,0 +1,14 @@
+### Test GitLab locally on MS Windows with the new powershell (pwsh)
+* Inside the root Git directory, run:
+$ C:\GitLab-Runner\gitlab-runner.exe --debug exec shell --shell pwsh --builds-dir <gitlab build-dir> <job-name>
+
+# redirect output to file
+<Command> | Out-File -FilePath c:\PATH\TO\OUTPUT.txt
+
+# or
+$ErrorActionPreference="SilentlyContinue"
+Stop-Transcript | out-null
+$ErrorActionPreference = "Continue"
+Start-Transcript -Append -Path C:\PATH\TO\output.txt
+# Do some stuff
+Stop-Transcript
