@@ -556,7 +556,7 @@
         ; highlight the name of the current tag (function, class, etc.)
         global-semantic-highlight-func-mode
         ; show the name of the function at the top in a sticky
-        global-semantic-stickyfunc-mode
+        ;; global-semantic-stickyfunc-mode
         ; generate a summary of the current tag when idle
         global-semantic-idle-summary-mode
         ; show a breadcrumb of location during idle time
