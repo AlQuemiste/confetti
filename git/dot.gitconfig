@@ -10,6 +10,7 @@
 	pl = pull
 	st = status
 	ch = checkout
+	sw = switch
 	stv = status -v
 	sts = status -s -b
 	br = branch
