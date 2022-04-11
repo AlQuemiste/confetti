@@ -671,3 +671,12 @@
     (grep cmd_)
     )
   )
+
+;;-- pomodoro
+;; use `org-time-set-timer` to set time
+;; `org-timer-pause-or-contine`: pause/continue
+;; `org-timer-stop`: stop
+
+(require 'org)
+; (setq org-clock-sound "/path/to/sound.wav") ; set `org-clock-sound'
+(setq-default org-timer-default-timer "30") ; default time interval in minutes
