@@ -5,6 +5,19 @@
 
 (require 'use-package)
 
+;; installed packages:
+;-- use-package
+;-- company
+;-- magit
+;-- wgrep
+;-- flycheck
+;-- cmake-mode
+;-- doom-themes
+;-- julia-mode
+;-- julia-repl
+;-- racket-mode
+;-- yaml-mode
+
 ;; to declutter mode line
 (when (require 'delight nil :noerror)
   (delight '((abbrev-mode " Abv" abbrev)
