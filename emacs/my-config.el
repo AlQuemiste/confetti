@@ -35,6 +35,7 @@
       scroll-bar-mode nil
       tool-bar-mode nil
       tooltip-mode nil ; disable tooltip appearance on mouse hover
+      widget-image-enable nil ; show textual equivalent of widgets
 )
 
 ;; Editing
