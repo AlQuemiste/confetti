@@ -3,48 +3,48 @@
 [user]
     # adapt and uncomment the following lines:
     name = AlQuemist
-	email = alquemist@Lyriks
+    email = alquemist@Lyriks
 
 [alias]
-	co = commit
-	ps = push
-	pl = pull
-	st = status
-	ch = checkout
+    co = commit
+    ps = push
+    pl = pull
+    st = status
+    ch = checkout
     sw = switch
     yp = cherry-pick
-	stv = status -v
-	sts = status -s -b
-	br = branch
+    stv = status -v
+    sts = status -s -b
+    br = branch
     b = branch --show-current
     ba = branch -a
-	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-	type = cat-file -t
-	dump = cat-file -p
-	ll = log --oneline --decorate
-	logl = log --oneline --decorate --pretty=format:'%C(bold cyan)%h%Creset -%C(yellow)%d%Creset %s %C(dim green)(%ar) %C(dim white)<%an>%Creset'
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
+    ll = log --oneline --decorate
+    logl = log --oneline --decorate --pretty=format:'%C(bold cyan)%h%Creset -%C(yellow)%d%Creset %s %C(dim green)(%ar) %C(dim white)<%an>%Creset'
       # <abbrev commit hash> - <commit subject> <author date (relative)> <author name>
     re = reset
-	rh = reset HEAD
-	reh = reset --hard
+    rh = reset HEAD
+    reh = reset --hard
     rehh = reset --hard HEAD
 
 [core]
-	# editor = emacs
+    # editor = emacs
     # auto-convert CRLF line endings into LF and vice versa
-	autocrlf = input
-	whitespace = trailing-space, space-before-tab, tab-in-indent, indent-with-tab,\
+    autocrlf = input
+    whitespace = trailing-space, space-before-tab, tab-in-indent, indent-with-tab,\
       blank-at-eol, blank-at-eof
 
 [apply]
     whitespace = warn
 
 [color]
-	ui = auto
+    ui = auto
 
 [pull]
-	ff = only
+    ff = only
 
 [github]
-	user = --MyGitHubUserName--
-	token = --MyGitHubToken--
+    user = --MyGitHubUserName--
+    token = --MyGitHubToken--
