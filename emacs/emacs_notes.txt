@@ -1,4 +1,4 @@
-# Emacs in server mode 
+# Emacs in server mode
 source: https://www.emacswiki.org/emacs/EmacsClient
 
 * Create an Emacs server
@@ -8,8 +8,6 @@ emacs --daemon
 emacsclient -t                  # opens in terminal
 emacsclient -c -a emacs         # opens in GUI mode
 
-
-
 # Company mode with ctags
 https://github.com/redguardtoo/company-ctags
 https://scripter.co/ctags-systemverilog-and-emacs
@@ -17,7 +15,8 @@ https://courses.cs.washington.edu/courses/cse451/10au/tutorials/tutorial_ctags.h
 
 (global-set-key (kbd "M-.") 'update-etags-table-then-find-tag)
 
+# produce ctags for .c, .h, .cpp, .hpp files
 find . -regex ".+\.[ch]\(pp\)*" | etags -
 
-CEDET
+# CEDET
 https://www.seas.upenn.edu/~chaoliu/2017/09/01/c-cpp-programming-in-emacs
