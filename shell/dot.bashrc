@@ -112,22 +112,7 @@ if ! shopt -oq posix; then
   fi
 fi
 #------------------------------------------------------------------------------80
-### user-defined ###
 
-# export PATH=$PATH:"~/.local/bin/"
-
-# TMP workspace
-alias ':WB'="mkdir -p /tmp/myworkbench && cd /tmp/myworkbench"
-
-# aliasing to Python3
-alias py=python3
-alias ipy=ipython3
-
-# proper bell sound for Emacs
-# ref: <https://www.gnu.org/software/emacs/manual/html_node/efaq/Turning-the-volume-down.html>
-xset b 2 1 200
-
-#------------------------------------------------------------------------------80
 # run ssh-agent <https://stackoverflow.com/a/24902046>
 # eval $(keychain --quiet --eval id_rsa)
 
