@@ -58,9 +58,16 @@ $ virt-viewer --connect qemu:///session <VM-Name>
 $ virsh dumpxml <VM-Name>
 ```
 * Use XML to define a VM
+  ref: <https://serverfault.com/a/830552>
 ```
 $ virsh define <VM-XML>
 ```
+
+* Mark VM to start on host boot:
+```
+$ virsh autostart <VM-Name>
+```
+
 ==================================================
 # Configure Spice to enable copy-pasting between the host and guest
 
@@ -72,12 +79,12 @@ With a Linux (Debian 11/bullseye) host and a Windows 10 guest:
   - Set the 'Display' to  'Spice'.
   - Add a 'spicevmc' Channel (via 'Add Hardware');
     The XML data will be:
-    > channel type="spicevmc"  
-    > target type="virtio"  
-    > name="com.redhat.spice.0"  
-    > alias name="channel0"  
+    > channel type="spicevmc"
+    > target type="virtio"
+    > name="com.redhat.spice.0"
+    > alias name="channel0"
     > address type="virtio-serial" controller="0" bus="0" port="2"
- 
+
 * In Linux host, enable `spice-vdagentd.service`; eg.
     ```
     # systemctl enable spice-vdagentd.service`
@@ -89,7 +96,7 @@ The copy-and-paste functionality is ready to use.
 
 See further:
 
-https://unix.stackexchange.com/a/435665 
+https://unix.stackexchange.com/a/435665
 
 https://www.reddit.com/r/linux/comments/asw4wk
 
@@ -106,7 +113,7 @@ https://www.reddit.com/r/linux/comments/asw4wk
 
 
 ==============================================
-# Ubuntu 
+# Ubuntu
 ```
 virt-install \
 --connect qemu:///system \
@@ -120,3 +127,27 @@ virt-install \
 --graphics spice \
 --noautoconsole
 ```
+
+# Shared folder between Linux host and Linux guest:
+Ref: <https://ostechnix.com/setup-a-shared-folder-between-kvm-host-and-guest>
+
+* On Linux host:
+  - Make a shared folder `$ mkdir /home/my-user-dir/KVM_Share`
+  - Give full permissions to the shared folder: `chmod 777 ~/KVM_Share`
+  - Open `virt-manager` with the guest system turned off.
+  - In `virt-manager`, configure the guest machine:
+    + Use 'Add Harware' to add a 'Filesystem' with properties:
+      > Type: mount
+      > Mode: squash
+      > Source path: /home/my-user-dir/KVM_Share
+      > Target path: /hostshare
+
+* On Linux guest:
+  - Create a mount point to mount the shared folder of KVM host system:
+    + `$ mkdir ~/hostfiles`
+    + `$ mount -t 9p -o trans=virtio /hostshare hostfiles/`
+
+  - To automatically mount the shared folder every time at boot, add the following line to `/etc/fstab` file in the guest system:
+  ```
+  /hostshare /home/my-user-dir/hostfiles 9p trans=virtio,version=9p2000.L,rw 0 0
+  ```
