@@ -2,25 +2,26 @@
 <https://linuxconfig.org/how-to-create-and-manage-kvm-virtual-machines-from-cli>
 
 Debian/Ubuntu Linux:
-# apt-get update
-# apt-cache dumpavail | grep -i 'package:.*qemu'
-
-# apt-get install qemu-kvm qemu-kvm-extras virtinst
-
-# apt-get install qemu-system libvirt-clients libvirt-daemon-system virtinst
-# apt-get install virt-manager  # GUI
-
+```
+$ apt-get update
+$ apt-cache dumpavail | grep -i 'package:.*qemu'
+$ apt-get install qemu-kvm libvirt-clients libvirt-daemon-system virtinst
+$ apt-get install virtinst virt-manager  # CLI & GUI
+```
 * Download Windows 10 Disc Image (ISO File) from Microsoft website
 
 * If the default network is deactivated, you won't be able to start any guest VMs which are configured to use the network. Then, activate the default network:
-# <https://blog.programster.org/kvm-missing-default-network>
-# <https://wiki.libvirt.org/page/Networking>
+  - <https://blog.programster.org/kvm-missing-default-network>
+  - <https://wiki.libvirt.org/page/Networking>
+```
 $ virsh net-start default
+```
 
 * difference between `qemu:///system` and `qemu:///session`: <https://blog.wikichoon.com/2016/01/qemusystem-vs-qemusession.html>
 * Use  the  command  "osinfo-query os" to get the list of the accepted OS variant names. `osinfo-query` is part of the package `libosinfo-bin`.
 
 * Install the VM
+```
 $ virt-install \
 --connect qemu:///system \
 --virt-type kvm \
@@ -33,22 +34,33 @@ $ virt-install \
 --graphics spice \
 --vnc --noautoconsole \
 --filesystem /ssd1/Win10/sharedfolder,C:/sharedfolder
-
-# installed on /ssd1/Win10
+```
+installed on /ssd1/Win10
 
 * list all installed VMs
+```
 $ virsh list --all
-
+```
 * start/stop a VM
+```
 $ virsh start <VM-Name>
 $ virsh shutdown --domain VM-Name
 $ virsh destroy --domain VM-Name  # force shutdown
 $ virsh undefine --domain VM-Name # remove the VM
-
+```
 * Connect a viewer
+```
 $ virsh start <VM-Name>
 $ virt-viewer --connect qemu:///session <VM-Name>
-
+```
+* Dump XML
+```
+$ virsh dumpxml <VM-Name>
+```
+* Use XML to define a VM
+```
+$ virsh define <VM-XML>
+```
 ==================================================
 # Configure Spice to enable copy-pasting between the host and guest
 
@@ -65,6 +77,7 @@ With a Linux (Debian 11/bullseye) host and a Windows 10 guest:
     > name="com.redhat.spice.0"  
     > alias name="channel0"  
     > address type="virtio-serial" controller="0" bus="0" port="2"
+ 
 * In Linux host, enable `spice-vdagentd.service`; eg.
     ```
     # systemctl enable spice-vdagentd.service`
@@ -94,7 +107,7 @@ https://www.reddit.com/r/linux/comments/asw4wk
 
 ==============================================
 # Ubuntu 
-
+```
 virt-install \
 --connect qemu:///system \
 --virt-type kvm \
@@ -106,3 +119,4 @@ virt-install \
 --vcpus 2 \
 --graphics spice \
 --noautoconsole
+```
