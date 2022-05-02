@@ -7,6 +7,7 @@ https://wiki.archlinux.org/index.php/Wicd
 default applications:
 https://wiki.archlinux.org/index.php/default_applications
 
+# pdf tools
 pdftk, pdfcrop
 
 * fonts:
@@ -23,7 +24,11 @@ https://www.passwordstore.org/
 imagemagick
 libtiff-dev
 texlive texlive-extra-utils texlive-latex-extra texlive-bibtex-extra
-gnutls-bin # for Emacs
+
+* sometimes needed for Emacs TLS connection
+gnutls-bin
+
+* offline docs
 zeal
 
 # static code analysis for C++
@@ -32,3 +37,4 @@ clang-tidy
 * dpkg
 dpkg -s <package-name>
 dpkg -L <package-name>
+dpkg -l <package-name>
