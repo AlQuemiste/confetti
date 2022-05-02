@@ -6,5 +6,5 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
-(load "~/.emacs.d/my-config.el")
+(load "$HOME/.emacs.d/my-emacs-conf.el")
 ;==================================
