@@ -1,0 +1,18 @@
+# Burn Debian ISO on USB Stick
+
+# Download the ISO file
+$ wget https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.3.0-amd64-netinst.iso
+
+# to obtain the name of the USB stick, use
+df
+# or
+lsblk
+
+# unmount the USB stick, e.g.,
+sudo umount /dev/sdb
+
+# burn the ISO file on the USB stick
+sudo dd if=debian.iso of=/dev/sdb bs=1M status=progress
+
+* get Debian ISO with non-free firmware from
+<http://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/11.3.0+nonfree/amd64/iso-cd>
