@@ -1,0 +1,85 @@
+=== Avoid MacOS sleep when the lid is closed
+# ref <https://apple.stackexchange.com/a/361398>
+
+# check global settings
+pmset -g
+
+# disable sleep
+sudo pmset -a disablesleep 1
+
+# enable sleep
+sudo pmset -a disablesleep 0
+
+=== Shutdown and reboot
+sudo shutdown -h now  # shutdown
+sudo shutdown -r now  # reboot
+
+# reboot in recovery mode
+# ref <https://apple.stackexchange.com/q/367336>
+sudo nvram "recovery-boot-mode=unused"
+sudo reboot
+
+=== Clean up pre-installed Mac apps
+
+* Reboot in Recovery mode (reboot while pressing `Cmd + R`)
+* Open a Terminal from the menus (Utilities -> Terminal)
+* Disable System Integrity Protection (SIP)
+csrutil disable
+
+* Check SIP status
+csrutil status
+
+* Find the main system volume; e.g. 
+cd /Volumes/Catalina1015
+
+* Goto /System/Applications
+cd /Volumes/Catalina1015/System/Applications
+
+* Delete unneeded, e.g.,
+rm -rf 'Siri.app'
+
+* Enable SIP:
+csrutil enable
+
+* Reboot in normal mode.
+
+=== Manipulate DMG packages
+
+# MacOS create .dmg package
+
+# see <http://xahlee.info/UnixResource_dir/macosx_zip_dmg.html>
+
+# CPack's internal command
+hdiutil create -ov -srcfolder '/path/to/package/source' -volname 'FooPackage' -fs "HFS+" -format UDZO 'foopkg.dmg'
+
+# mounting and unmounting a .dmg file
+# ref <https://superuser.com/a/477624>
+
+# list disks
+diskutil list
+
+# mount a disk
+hdiutil attach 'disk.dmg' -noverify 'disk.dmg'
+
+# attach a disk without mounting
+hdiutil attach 'disk.dmg' -noverify -nomount
+diskutil mountDisk '/dev/disk2'
+
+# unmount a disk
+hdiutil unmount '/Volumes/DiskName'
+diskutil unmount '/Volumes/DiskName'
+diskutil unmountDisk '/dev/disk2'
+
+# mount a disk with more precise options 
+hdiutil attach 'disk.dmg' -quiet -nobrowse -noverify -noautoopen -mountpoint '/mount/path'
+
+# detach
+hdiutil detach '/mount/path'
+
+# view the contents of the .dmg file on _Linux_
+7z l 'disk.dmg'
+
+# extract the .dmg file on _Linux_
+7z x 'disk.dmg'
+
+
