@@ -68,6 +68,16 @@ $ virsh define <VM-XML>
 $ virsh autostart <VM-Name>
 ```
 
+* Configure libvirt permissions
+```
+sudo nano /etc/libvirt/qemu.conf
+```
+uncomment `user = "root"` and then change `group = "libvirt"`
+add user to the libvirt group
+```
+sudo usermod -a -G libvirt $USER
+```
+
 ==================================================
 # Configure Spice to enable copy-pasting between the host and guest
 
