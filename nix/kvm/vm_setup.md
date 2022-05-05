@@ -7,6 +7,7 @@ $ apt-get update
 $ apt-cache dumpavail | grep -i 'package:.*qemu'
 $ apt-get install qemu-kvm libvirt-clients libvirt-daemon-system virtinst
 $ apt-get install virtinst virt-manager  # CLI & GUI
+$ apt-get install libosinfo-bin # for `osinfo-query`
 ```
 * Download Windows 10 Disc Image (ISO File) from Microsoft website
 
