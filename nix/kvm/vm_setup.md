@@ -5,8 +5,9 @@ Debian/Ubuntu Linux:
 ```
 $ apt-get update
 $ apt-cache dumpavail | grep -i 'package:.*qemu'
-$ apt-get install qemu-kvm libvirt-clients libvirt-daemon-system virtinst
+$ apt-get install qemu-kvm libvirt-clients libvirt-daemon-system
 $ apt-get install virtinst virt-manager  # CLI & GUI
+$ apt-get install bridge-utils  # for network bridge
 $ apt-get install libosinfo-bin # for `osinfo-query`
 ```
 * Download Windows 10 Disc Image (ISO File) from Microsoft website
