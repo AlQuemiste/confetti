@@ -1,18 +1,23 @@
-git clone https://github.com/kholia/OSX-KVM.git
+# Follow the instructions in <https://github.com/kholia/OSX-KVM.git>
+git clone --depth 1 --recursive https://github.com/kholia/OSX-KVM.git
+
 cd OSX-KVM
+
+sudo cp kvm.conf /etc/modprobe.d/kvm.conf  # for intel boxes only
+
 ./fetch-macOS-v2.py
 
 # selected Catalina (10.15)
 
-qemu-img convert BaseSystem.dmg -O raw BaseSystem.img
+dmg2img -i BaseSystem.dmg BaseSystem.img
 
-qemu-img create -f qcow2 ~/VMArena/img/osx_catalina_10.15.img 80G
+qemu-img create -f qcow2 ./VM/img/osx_catalina_10.15.img 80G
 
 # follow instructions at <https://github.com/kholia/OSX-KVM.git>
 
 # then
 # Select “Disk Utility”
-# In the top left, select “Show All Devices” 
+# In the top left, select “Show All Devices”
 # Select the disk which has 80GB and is “Uninitialized”.
 # Select “Erase” and erase the 80GB disk.
 # Select “Partition” and partition the 80GB disk. The size must be a little bit smaller than the allocated size (eg., 85.6 => 85.5)
@@ -30,9 +35,9 @@ qemu-img create -f qcow2 ~/VMArena/img/osx_catalina_10.15.img 80G
 # see also <https://dev.to/v3frankie/setup-your-mac-for-development-2020-edition-1c8a>
 
 # install xcode command-line tools
-% xcode-select --install 
+% xcode-select --install
 
 # install Python
-% brew install python@3.8
+% brew install python@3.9
 
 # check if llvm and clang are installed
