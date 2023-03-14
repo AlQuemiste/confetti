@@ -19,6 +19,13 @@ sudo shutdown -r now  # reboot
 sudo nvram "recovery-boot-mode=unused"
 sudo reboot
 
+=== Remote login
+
+# enable remote login
+sudo systemsetup -setremotelogin on
+# check remote login
+sudo systemsetup -getremotelogin
+
 === Clean up pre-installed Mac apps
 
 * Reboot in Recovery mode (reboot while pressing `Cmd + R`)
