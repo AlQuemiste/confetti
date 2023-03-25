@@ -7,9 +7,9 @@ rq_pass="keepassxc"
 
 rq_fonts="fonts-inconsolata ttf-bitstream-vera"
 rq_tex="texlive texlive-extra-utils texlive-latex-extra texlive-bibtex-extra cm-super"
-rq_pdf="pdftk okular evince" # okular needs `qt5-style-plugins`
+rq_pdf="pdftk okular evince mupdf mupdf-tools" # okular needs `qt5-style-plugins`
 rq_edit="kate gedit" # kate needs `konsole` for the terminal
-rq_img="feh libtiff-dev imagemagick kolourpaint"
+rq_img="gpicview libtiff-dev imagemagick kolourpaint"
 # kolourpaint needs `breeze-icon-theme`
 rq_multimedia="ffmpeg mpv"
 rq_xfce="xfce4-battery-plugin xfce4-datetime-plugin
