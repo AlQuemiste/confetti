@@ -541,6 +541,50 @@
   :case-fixed t  ; case of the abbrev’s name is significant
   )
 
+(define-abbrev-table 'f90-mode-abbrev-table
+  '(
+    ("`s"     "subroutine" nil)
+    ("`f"     "function" nil)
+    ("`t"     "type" nil)
+    ("`T"     "type(" dont-insert-expansion-char nil)
+    ("`c"     "call" nil)
+    ("`ii"    "intent(in)" nil)
+    ("`io"    "intent(out)" nil)
+    ("`iio"   "intent(inout)" nil)
+    ("`no"    "implicit none" dont-insert-expansion-char nil)
+    ("`as"    "associate(" nil)
+    ("int"    "integer" dont-insert-expansion-char nil)
+    ("re"     "real" dont-insert-expansion-char nil)
+    ("char"   "character" dont-insert-expansion-char nil)
+    ("bool"   "logical" dont-insert-expansion-char nil)
+    ("el"     "else \n" dont-insert-expansion-char nil)
+    ("elif"   "else if" nil)
+    ("`pr"    "print *," nil)
+    ("IF"     "#if" nil)
+    ("IFD"    "#ifdef" nil)
+    ("IFN"    "#ifndef" nil)
+    ("EL"     "#else //" nil)
+    ("EIF"    "#endif //" nil)
+    )
+  :regexp "\\(`[0-9A-Za-z._-]+\\)"
+  :system t
+  :case-fixed t  ; case of the abbrev’s name is significant
+  )
+
+
+(defvar my-abbrev-regexp
+  "\\(`[0-9A-Za-z._-]+\\)"
+  "Use as :regexp in abbrev tables to make \\=` a valid abbrev char.
+
+If making \\=` optional (suffix it with ?), `re-search-backward' will
+not be able to be that aggressive to match to it.  Thus, making
+the leading \\=` mandatory.
+
+If `words-include-escapes' is used then this regexp can fail.
+Refer to the elisp comments in `abbrev--before-point' for details.")
+
+;(abbrev-table-put f90-mode-abbrev-table :regexp my-abbrev-regexp)
+
 (setq-default abbrev-mode t)
 (setq abbrev-file-name "~/.emacs.d/abbrev_defs")
 (read-abbrev-file "~/.emacs.d/my_abbrev_defs.el")
