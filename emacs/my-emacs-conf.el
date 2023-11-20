@@ -640,6 +640,9 @@
 
 (defalias 'lf 'load-file)
 
+(defalias 'lt 'load-theme)
+(defalias 'dt 'disable-theme)
+
 ;;;======================================================================
 (defun open-emacs-settings ()
   """ open Emacs configuration folder """
