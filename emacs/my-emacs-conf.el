@@ -205,6 +205,11 @@
 ;(global-set-key [f11] 'list-buffers)
 ;(global-set-key [f12] 'shell)
 
+; add a keybinding for opening a shell
+(global-set-key (kbd "C-c t")
+  (lambda () (interactive) (shell)))
+
+
 ;; inserting date
 ;; source < http://stackoverflow.com/a/2643094/3484761 >
 
