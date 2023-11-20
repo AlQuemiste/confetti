@@ -38,13 +38,32 @@
       widget-image-enable nil ; show textual equivalent of widgets
 )
 
-;; Editing
+;; editing
 (setq-default tab-width 4)
 (setq-default cmake-tab-width 4)
 (setq-default indent-tabs-mode nil) ; use spaces instead of tabs for indentation
 (setq-default scroll-step 1) ; scroll 1 line at a time
-(setq line-move-visual t)
-(setq-default fill-column 80)
+(setq-default line-move-visual t)
+(setq-default fill-column 100)
+(setq-default show-trailing-whitespace t)
+(line-number-mode t)    ; show line numbers
+(column-number-mode t)  ; show column numbers
+;; show line numbers on the left
+(global-display-line-numbers-mode t)
+(setq linum-format "%4d ")  ; prettify line number format
+;; visual-Line-Mode wraps a line right before the window edge, but ultimately they do not alter the buffer text
+(global-visual-line-mode t)
+;; set default cursor type in non-selected windows
+(setq-default cursor-in-non-selected-windows 'hollow) ;'box)
+(blink-cursor-mode t)
+
+;; mark the locus in non-selected windows by a fringe-arrow
+(setq-default next-error-highlight-no-select 'fringe-arrow)
+
+;; enable/disable visible bell
+(setq visible-bell nil)
+
+(fset 'yes-or-no-p 'y-or-n-p)  ; y-or-n-p makes answering questions faster
 
 ;; proper bell sound for Emacs
 ;; ref: <https://www.gnu.org/software/emacs/manual/html_node/efaq/Turning-the-volume-down.html>
@@ -54,16 +73,21 @@
 ;; ESC cancels all
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; Narrowing
+;; turn on paren match highlighting
+(show-paren-mode t)
+
+(setq comment-inline-offset 2)
+
+;; narrowing
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-defun  'disabled nil)
 (put 'narrow-to-page   'disabled nil)
 
-;; Upper/lower case conversion
+;; upper/lower case conversion
 (put 'upcase-region   'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-;; Unset suspend key chord
+;; unset suspend key chord
 (global-unset-key (kbd "C-z")) ; bound to `suspend-frame' by default
 
 ;; disable backup files
@@ -81,27 +105,6 @@
    version-control t  ; use versioned backups
    )
 
-;; Enable/disable visible bell
-(setq visible-bell nil)
-
-(line-number-mode t)    ; makes the line number show up
-(column-number-mode t)  ; makes the column number show up
-(fset 'yes-or-no-p 'y-or-n-p)  ; y-or-n-p makes answering questions faster
-
-;; show line numbers on the left
-(global-display-line-numbers-mode t)
-(setq linum-format "%4d ")  ; prettify line number format
-
-;; set default cursor type in non-selected windows
-(setq-default cursor-in-non-selected-windows 'hollow) ;'box)
-(blink-cursor-mode t)
-
-;; mark the locus in non-selected windows by a fringe-arrow
-(setq-default next-error-highlight-no-select 'fringe-arrow)
-
-;; Visual-Line-Mode wraps a line right before the window edge, but ultimately they do not alter the buffer text.
-(global-visual-line-mode t)
-
 (use-package dabbrev
   :init
   (setq
@@ -113,10 +116,6 @@
    )
   )
 
-;; turn on paren match highlighting
-(show-paren-mode t)
-
-(setq comment-inline-offset 2)
 
 ;; activate Savehist mode to save only minibuffer histories
 (savehist-mode 0)
@@ -135,15 +134,6 @@
 
 ;; automatically kill running processes on exit
 (setq confirm-kill-processes nil)
-
-;; enable CamelCase-aware editing for all programming modes
-(add-hook 'prog-mode-hook 'subword-mode)
-
-;; column-enforce-mode in all source code modes: highlights text extending beyond a certain column.
-;;(add-hook 'prog-mode-hook 'column-enforce-mode)
-
-;; highlight-indent-guides in all source code modes
-;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 
 ;; kill or copy the line point is on with a single keystroke:
 ;; C-w kills the current line
@@ -195,7 +185,7 @@
 
 ;; to up-case keywords automatically in f90-mode
 ;; < https://lists.gnu.org/archive/html/help-gnu-emacs/2003-05/msg01134.html >
-(setq f90-auto-keyword-case 'upcase-word)
+; (setq f90-auto-keyword-case 'upcase-word)
 
 ;; keyboard shortcuts
 ;; source < http://stackoverflow.com/a/154146/3484761 >
@@ -548,7 +538,7 @@
 
 (setq-default abbrev-mode t)
 (setq abbrev-file-name "~/.emacs.d/abbrev_defs")
-;(read-abbrev-file "~/.abbrev_defs")
+(read-abbrev-file "~/.emacs.d/my_abbrev_defs.el")
 
 ;;===  CEDET configuration ===
 ;; ref: <http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html>
