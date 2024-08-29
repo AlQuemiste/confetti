@@ -158,7 +158,7 @@
 (require 'dired )
 
 ;; dired
-(setq dired-listing-switches "-agho --group-directories-first"
+(setq dired-listing-switches "-laGh1v --group-directories-first"
       delete-by-moving-to-trash t)
 
 ;; ignore case when using completion for file names
