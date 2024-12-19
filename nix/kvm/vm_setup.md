@@ -1,5 +1,10 @@
 <https://wiki.debian.org/KVM>
+
+<https://help.ubuntu.com/community/KVM/>
+
 <https://linuxconfig.org/how-to-create-and-manage-kvm-virtual-machines-from-cli>
+
+<https://jamielinux.com/docs/libvirt-networking-handbook/>
 
 Debian/Ubuntu Linux:
 ```
@@ -11,6 +16,7 @@ $ apt-get install bridge-utils  # for network bridge
 $ apt-get install libosinfo-bin # for `osinfo-query`
 ```
 * Download Windows 10 Disc Image (ISO File) from Microsoft website
+* Download virtio ISO from <https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md>.
 
 * If the default network is deactivated, you won't be able to start any guest VMs which are configured to use the network. Then, activate the default network:
   - <https://blog.programster.org/kvm-missing-default-network>
@@ -21,19 +27,22 @@ $ virsh net-start default
 
 * difference between `qemu:///system` and `qemu:///session`: <https://blog.wikichoon.com/2016/01/qemusystem-vs-qemusession.html>
 * Use  the  command  "osinfo-query os" to get the list of the accepted OS variant names. `osinfo-query` is part of the package `libosinfo-bin`.
+The command `virt-install --osinfo list` list all allowed OS variants.
 
 * Install the VM
 ```
+$ imgpath="/ssd1/Win10/"
 $ virt-install \
 --connect qemu:///system \
 --virt-type kvm \
+--arch=x86_64 \
 --name Windows10_x64 \
---cdrom /ssd1/Win10/Win10_21H1_English_x64.iso \
---os-type windows --os-variant win10 \
---disk path=/ssd1/Win10/images/win10.img,size=500 \
---memory 4096 \
---vcpus 4 \
---graphics spice \
+--cdrom ${imgpath}/Win10_21H1_English_x64.iso \
+--disk path=${imgpath}/virtio-win-0.1.266.iso,device=cdrom,perms=ro \
+--os-variant win10 \
+--disk path=${imgpath}/images/win10_x64_clean.qcow2,size=200,device=disk,bus=virtio,format=qcow2 \
+--memory 16384 \
+--vcpus 8 \
 --vnc --noautoconsole \
 --filesystem /ssd1/Win10/sharedfolder,C:/sharedfolder
 ```
