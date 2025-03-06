@@ -1,0 +1,50 @@
+# update: docker build --tag scg-debian-oldstable:latest -f ./Dockerfile.debian.oldstable  --progress plain .
+# run:    docker run -it scg-debian-oldstable:latest /bin/bash
+# run with binded volume: mkdir /host/dir/ && docker run -v /host/dir:/container/dir/:rw -i -t scg-debian-oldstable:latest /bin/bash
+
+FROM debian:oldstable
+
+LABEL description="This is a Docker image based on stable Debian 11 (stable) to build and test software."
+
+# add bullseye backports (needed for CMake and Qt6)
+RUN echo "deb http://deb.debian.org/debian bullseye-backports main" >> /etc/apt/sources.list
+
+WORKDIR /home/
+ENV HOME=/root/
+
+# dependencies
+RUN apt-get update
+
+RUN apt-get install -y \
+  curl git make g++ \
+  cmake-data/bullseye-backports cmake/bullseye-backports \
+  libgsl-dev libfftw3-dev libtiff5-dev \
+  libboost-dev \
+  qt6-base-dev/bullseye-backports qt6-svg-dev/bullseye-backports \
+  mesa-common-dev \
+  ccache
+
+# pyenv requirements <https://github.com/pyenv/pyenv/wiki#suggested-build-environment>
+RUN apt-get install -y libssl-dev zlib1g-dev \
+  libbz2-dev libreadline-dev libsqlite3-dev \
+  libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
+# install pyenv
+RUN curl -fsSL https://pyenv.run | /bin/bash
+ENV PYENV_ROOT="/root/.pyenv"
+ENV PATH="$PYENV_ROOT/bin:/opt/cmake/bin:$PATH"
+
+# Python dependencies
+ARG PYDEPS="numpy matplotlib wheel patchelf auditwheel"
+RUN pyenv install 3.10 3.11 3.12
+RUN eval "$(pyenv init -)" && pyenv global 3.10  && pip install --upgrade pip && pip install ${PYDEPS}
+RUN eval "$(pyenv init -)" && pyenv global 3.11  && pip install --upgrade pip && pip install ${PYDEPS}
+RUN eval "$(pyenv init -)" && pyenv global 3.12  && pip install --upgrade pip && pip install ${PYDEPS}
+
+# setup applications
+COPY ./bootstrap.sh "/home/"
+RUN sh /home/bootstrap.sh
+
+# entrypoint
+# COPY --chmod=0111 ./docker_entrypoint.sh "/usr/local/bin/docker_entrypoint.sh"
+# ENTRYPOINT [ "/usr/local/bin/docker_entrypoint.sh" ]
