@@ -1,5 +1,7 @@
 <https://wiki.debian.org/KVM>
 
+<https://access.redhat.com/articles/2470791>
+
 <https://help.ubuntu.com/community/KVM/>
 
 <https://linuxconfig.org/how-to-create-and-manage-kvm-virtual-machines-from-cli>
