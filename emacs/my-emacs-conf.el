@@ -18,14 +18,17 @@
 ;-- racket-mode
 ;-- yaml-mode
 
-;; to declutter mode line
-(when (require 'delight nil :noerror)
-  (delight '((abbrev-mode " Abv" abbrev)
-             (eldoc-mode nil eldoc)
-             (company-mode " Co" company)
-             (overwrite-mode " Ov" t)
-             (visual-line-mode nil simple)
-             (emacs-lisp-mode "eLisp" :major)))
+;; tramp
+(when (require 'tramp nil :noerror)
+  (setq tramp-default-method "ssh")
+  (setq tramp-verbose 10)
+  (setq explicit-shell-file-name "/bin/bash")
+  (setq tramp-default-remote-shell "/bin/bash")
+  (setq tramp-encoding-shell "/bin/bash")
+  (add-to-list 'tramp-connection-properties
+               (list "remote-shell" "/bin/bash"))
+
+  ;;(setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
   )
 
 ;; minimal UI
@@ -43,27 +46,8 @@
 (setq-default cmake-tab-width 4)
 (setq-default indent-tabs-mode nil) ; use spaces instead of tabs for indentation
 (setq-default scroll-step 1) ; scroll 1 line at a time
-(setq-default line-move-visual t)
-(setq-default fill-column 100)
-(setq-default show-trailing-whitespace t)
-(line-number-mode t)    ; show line numbers
-(column-number-mode t)  ; show column numbers
-;; show line numbers on the left
-(global-display-line-numbers-mode t)
-(setq linum-format "%4d ")  ; prettify line number format
-;; visual-Line-Mode wraps a line right before the window edge, but ultimately they do not alter the buffer text
-(global-visual-line-mode t)
-;; set default cursor type in non-selected windows
-(setq-default cursor-in-non-selected-windows 'hollow) ;'box)
-(blink-cursor-mode t)
-
-;; mark the locus in non-selected windows by a fringe-arrow
-(setq-default next-error-highlight-no-select 'fringe-arrow)
-
-;; enable/disable visible bell
-(setq visible-bell nil)
-
-(fset 'yes-or-no-p 'y-or-n-p)  ; y-or-n-p makes answering questions faster
+(setq line-move-visual t)
+(setq-default fill-column 80)
 
 ;; proper bell sound for Emacs
 ;; ref: <https://www.gnu.org/software/emacs/manual/html_node/efaq/Turning-the-volume-down.html>
@@ -73,21 +57,16 @@
 ;; ESC cancels all
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; turn on paren match highlighting
-(show-paren-mode t)
-
-(setq comment-inline-offset 2)
-
-;; narrowing
+;; Narrowing
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-defun  'disabled nil)
 (put 'narrow-to-page   'disabled nil)
 
-;; upper/lower case conversion
+;; Upper/lower case conversion
 (put 'upcase-region   'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-;; unset suspend key chord
+;; Unset suspend key chord
 (global-unset-key (kbd "C-z")) ; bound to `suspend-frame' by default
 
 ;; disable backup files
@@ -105,6 +84,27 @@
    version-control t  ; use versioned backups
    )
 
+;; Enable/disable visible bell
+(setq visible-bell nil)
+
+(line-number-mode t)    ; makes the line number show up
+(column-number-mode t)  ; makes the column number show up
+(fset 'yes-or-no-p 'y-or-n-p)  ; y-or-n-p makes answering questions faster
+
+;; show line numbers on the left
+(global-display-line-numbers-mode t)
+(setq linum-format "%4d ")  ; prettify line number format
+
+;; set default cursor type in non-selected windows
+(setq-default cursor-in-non-selected-windows 'hollow) ;'box)
+(blink-cursor-mode t)
+
+;; mark the locus in non-selected windows by a fringe-arrow
+(setq-default next-error-highlight-no-select 'fringe-arrow)
+
+;; Visual-Line-Mode wraps a line right before the window edge, but ultimately they do not alter the buffer text.
+(global-visual-line-mode t)
+
 (use-package dabbrev
   :init
   (setq
@@ -116,6 +116,10 @@
    )
   )
 
+;; turn on paren match highlighting
+(show-paren-mode t)
+
+(setq comment-inline-offset 2)
 
 ;; activate Savehist mode to save only minibuffer histories
 (savehist-mode 0)
@@ -134,6 +138,23 @@
 
 ;; automatically kill running processes on exit
 (setq confirm-kill-processes nil)
+
+;; open shell in a new window
+(defun shell-other-window ()
+  "Open a 'shell' in a new window."
+  (interactive)
+  (let ((buf (shell)))
+    (switch-to-buffer (other-buffer buf))
+    (switch-to-buffer-other-window buf)))
+
+;; enable CamelCase-aware editing for all programming modes
+(add-hook 'prog-mode-hook 'subword-mode)
+
+;; column-enforce-mode in all source code modes: highlights text extending beyond a certain column.
+;;(add-hook 'prog-mode-hook 'column-enforce-mode)
+
+;; highlight-indent-guides in all source code modes
+;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 
 ;; kill or copy the line point is on with a single keystroke:
 ;; C-w kills the current line
@@ -183,9 +204,9 @@
 ;(setq-default abbrev-mode t)
 ;(load "~/.emacs.d/my_emacs_abbrev")
 
-;; to up-case keywords automatically in f90-mode
+;; to up-case keywords automatically in fortran90-mode
 ;; < https://lists.gnu.org/archive/html/help-gnu-emacs/2003-05/msg01134.html >
-; (setq f90-auto-keyword-case 'upcase-word)
+;;(setq f90-auto-keyword-case 'upcase-word)
 
 ;; keyboard shortcuts
 ;; source < http://stackoverflow.com/a/154146/3484761 >
@@ -220,6 +241,7 @@
 (global-set-key [(f12)] 'insertdate)
 
 ;; custom themes
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;; (add-to-list 'load-path "~/.emacs.d/themes/my-kaolin")
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/my-kaolin")
 ;;(load-theme 'mytheme t)
@@ -431,6 +453,18 @@
 ;; set Python shell interpreter for 'run-python'
 (setq python-shell-interpreter "/usr/bin/python3")
 
+;; Python Pylint
+(when (require 'pylint nil :noerror)
+
+  (autoload 'pylint "pylint")
+  (add-hook 'python-mode-hook 'pylint-add-menu-items)
+  (add-hook 'python-mode-hook 'pylint-add-key-bindings)
+  (customize-set-variable 'pylint-command "source /home/MyUser/.venv/myPy/bin/activate && pylint")
+  (customize-set-variable 'pylint-options
+     (append pylint-options
+        '("-j6" "--rcfile=/home/ammar/.pylintrc" "--suggestion-mode=yes")))
+  )
+
 ;; Maxima
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/maxima/")
 
@@ -486,7 +520,15 @@
 ;;       telephone-line-evil-use-short-tag t)
 ;; (telephone-line-mode 1)
 
-
+;; Docker mode
+;; <https://github.com/Silex/docker.el>
+(use-package docker
+  :ensure t
+  :bind ("C-c d" . docker)
+  ;; :bind ("C-c d c" . docker-containers)
+  ;; :bind ("C-c d i" . docker-images)
+  ;; :bind ("C-c d v" . docker-volumes)
+  )
 
 (when (require 'lsp-mode nil :noerror)
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
@@ -516,8 +558,8 @@
     ("IFN"    "#ifndef" nil)
     ("EL"     "#else //" nil)
     ("EIF"    "#endif //" nil)
-    ("main2"  "int main(int argc, char* argv[])\n{\nreturn 0;\n}" dont-insert-expansion-char nil)
-    ("main"  "int main()\n{\nreturn 0;\n}" dont-insert-expansion-char nil)
+    ("mainf2"  "int main(int argc, char* argv[])\n{\nreturn 0;\n}" dont-insert-expansion-char nil)
+    ("mainf"  "int main()\n{\nreturn 0;\n}" dont-insert-expansion-char nil)
     ("el"     "else {\n}" dont-insert-expansion-char nil)
     ("elif"   "else if {\n}" dont-insert-expansion-char nil)
     ("whl"    "while() {\n}" dont-insert-expansion-char nil)
@@ -689,14 +731,19 @@ Refer to the elisp comments in `abbrev--before-point' for details.")
 
 (defalias 'lf 'load-file)
 
-(defalias 'lt 'load-theme)
-(defalias 'dt 'disable-theme)
+
+(defalias 't> 'load-theme)
+(defalias 't~ 'disable-theme)
 
 ;;;======================================================================
 (defun open-emacs-settings ()
   """ open Emacs configuration folder """
   (interactive)
   (dired "$HOME/.emacs.d/"))
+
+(defun :sh ()
+  (interactive)
+  (shell-other-window))
 
 (defun :my ()
   (interactive)
@@ -721,6 +768,32 @@ Refer to the elisp comments in `abbrev--before-point' for details.")
          ;; ask user for the grep pattern
          (cmd_ (concat "grep --color -nHr "
                        (read-from-minibuffer "c++-grep: " (cons msg_ msg0ln)))
+               )
+         )
+    ;--in--
+    (grep cmd_)
+    )
+  )
+
+(defun grcmake ()
+  "Run cmake-grep recursively from the directory of the current buffer or the default directory"
+  (interactive)
+  (let* (
+         ;; current directory
+         (dir_ (file-name-directory
+                (or load-file-name buffer-file-name default-directory)))
+         ;; add a list of excluded directories
+         (excluded-dirs "build,3rdparty")
+         (extensions "cmake,txt,in")
+         ;; build grep command
+         (excluded (concat "--exclude-dir={" excluded-dirs "}"))
+         (included (concat "--include=*.{" extensions "}"))
+         (msg0 (concat included " " excluded " -e "))
+         (msg0ln (+ 1 (length msg0)))
+         (msg_ (concat msg0 "  -- " dir_))
+         ;; ask user for the grep pattern
+         (cmd_ (concat "grep --color -nHr "
+                       (read-from-minibuffer "cmake-grep: " (cons msg_ msg0ln)))
                )
          )
     ;--in--
