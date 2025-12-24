@@ -42,6 +42,20 @@
     fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
     # list contributors with number of commits
     contributors = shortlog --summary --numbered
+    # additional useful aliases
+    uncommit = reset --soft HEAD~1
+    unstage = reset HEAD --
+    amend = commit --amend --no-edit
+    amendit = commit --amend
+    last = log -1 HEAD --stat
+    changed = diff --name-only
+    ignored = ls-files --others --ignored --exclude-standard
+    # show commits that aren't pushed yet
+    unpushed = log @{u}..
+    # interactive rebase
+    rb = rebase -i
+    # continue rebase/merge
+    cont = "!git add -A && git rebase --continue || git merge --continue"
 
 [core]
     # editor = emacs
@@ -49,6 +63,10 @@
     autocrlf = input
     whitespace = trailing-space, space-before-tab, tab-in-indent, indent-with-tab,\
       blank-at-eol, blank-at-eof
+    # better diff algorithm
+    algorithm = histogram
+    # use less with more options for pager
+    pager = less -FRX
 
 [apply]
     whitespace = warn
@@ -82,6 +100,107 @@
 
 [pull]
     ff = only
+    rebase = false
+
+[push]
+    # push current branch to upstream
+    default = simple
+    # automatically push tags
+    followTags = true
 
 [init]
     defaultBranch = main
+
+[fetch]
+    # automatically prune deleted remote branches
+    prune = true
+
+[rebase]
+    # automatically stash and unstash working directory
+    # autoStash = true
+    # automatically squash fixup commits
+    # autoSquash = true
+
+[merge]
+    # show common ancestor in conflict markers
+    conflictStyle = diff3
+    # use better merge tool
+    tool = emerge # Emacs merge tool
+
+[diff]
+    # detect renames and copies
+    renames = copies
+    # use better diff algorithm for move detection
+    algorithm = histogram
+    # show submodule changes
+    submodule = log
+    # color moved lines differently
+    colorMoved = default
+    # improve function context detection
+    indentHeuristic = true
+
+# Language-specific diff settings for better function context
+
+[diff "cpp"]
+    xfuncname = "^[ \\t]*(([A-Za-z_][A-Za-z_0-9]*::)*~?[A-Za-z_][A-Za-z_0-9]*[ \\t]*\\(.*\\))[ \\t]*$"
+
+[diff "fortran"]
+    xfuncname = "^[ \\t]*(program|subroutine|function|module)[ \\t]+[A-Za-z_][A-Za-z_0-9]*"
+
+[diff "python"]
+    xfuncname = "^[ \\t]*(def|class)[ \\t]+[a-zA-Z_][a-zA-Z0-9_]*"
+
+# Git LFS (Large File Storage) configuration for binary files
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+[blame]
+    # ignore whitespace changes
+    ignoreRevsFile = .git-blame-ignore-revs
+
+# commit settings
+[commit]
+    # show diff in commit message editor
+    verbose = true
+    # automatically sign commits (if GPG is configured)
+    # gpgsign = true
+
+# status settings
+[status]
+    # show individual files in untracked directories
+    showUntrackedFiles = all
+    # show submodule summary
+    submoduleSummary = true
+
+# performance improvements
+[index]
+    # speed up status and other operations
+    version = 4
+
+[feature]
+    # enable experimental features for better performance
+    manyFiles = true
+
+[pack]
+    # use multiple threads for compression
+    threads = 8
+
+# log settings
+[log]
+    # show commit signatures
+    showSignature = false
+    # abbreviate hashes
+    abbrevCommit = true
+    # follow file renames
+    follow = true
+
+# URL shortcuts for common hosts
+[url "git@github.com:"]
+    insteadOf = gh:
+[url "git@gitlab.com:"]
+    insteadOf = gl:
+[url "git@bitbucket.org:"]
+    insteadOf = bb:
