@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=Firefox
+GenericName=Web Browser
+Exec=$HOME/.local/opt/firefox/firefox %u
+Terminal=false
+Type=Application
+Icon=firefox
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+StartupNotify=true
+
+# place in $HOME/.local/share/applications/ folder
+# update-desktop-database $HOME/.local/share/applications
