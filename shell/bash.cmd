@@ -67,3 +67,7 @@ ffmpeg -i input.mp4 -vcodec libx264 -crf 28 -preset medium -c:a copy output.mp4
 ## `-b:v 1000k`: sets video bitrate to 1000kbps. Lowering this can greatly reduce size, but also quality.
 
 ffmpeg -i input.mp4 -vcodec h264 -b:v 1000k -acodec mp3 output.mp4
+
+# mpv play
+mpv --autofit-larger=50%x50% --volume=50 <video-link>
+mpv --no-video --start=00:30:00 <video-link>
