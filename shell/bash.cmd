@@ -71,3 +71,11 @@ ffmpeg -i input.mp4 -vcodec h264 -b:v 1000k -acodec mp3 output.mp4
 # mpv play
 mpv --autofit-larger=50%x50% --volume=50 <video-link>
 mpv --no-video --start=00:30:00 <video-link>
+
+# pandoc
+
+## convert markdown to pdf
+pandoc --template=eisvogel.latex --from markdown myfile.md --pdf-engine=xelatex -o myfile.pdf
+
+## templates for markdown to LaTeX:
+<https://github.com/Wandmalfarbe/pandoc-latex-template>
