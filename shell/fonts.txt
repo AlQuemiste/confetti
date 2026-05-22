@@ -1,0 +1,33 @@
+# obtain the fonts
+mkdir -p $HOME/.local/share/fonts/inconsolata
+cd $HOME/.local/share/fonts/inconsolata
+
+curl -OL https://github.com/google/fonts/archive/refs/heads/main.zip
+unzip main.zip
+
+# copy the font files into fonts folder
+fontdst=$HOME/.local/share/fonts/
+find fonts-main/ofl/inconsolata -name "*.ttf" -exec cp {} $fontdst \;
+
+# update the font cache
+fc-cache -fv
+
+# obtain the name of a font
+fc-scan --format '%{family}\n' /usr/share/fonts/truetype/quicksand/Quicksand-Regular.ttf
+
+# use in Emacs config:
+
+(set-face-attribute 'default nil :font "Inconsolata-12")
+
+(set-face-attribute 'default nil :font "Source Code Pro-12")
+
+(set-face-attribute 'default nil :font "IBM Plex Mono-12")
+
+(set-face-attribute 'default nil
+                    :family "Inconsolata"
+                    :height 120)
+
+(set-face-attribute 'default nil
+                    :family "Inconsolata"
+                    :weight 'medium
+                    :height 130)
