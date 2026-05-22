@@ -1,3 +1,6 @@
+# Useful bash aliases
+# used by .bashrc
+
 apt-ins ()
 {
    local status=$(dpkg -l $1 2>/dev/null | grep -e '^ii')
@@ -11,27 +14,30 @@ apt-ins ()
 
 export PATH=$PATH:$HOME/.local/bin
 
-alias ':c'=clear
-
 # proper bell sound for Emacs
 # ref: <https://www.gnu.org/software/emacs/manual/html_node/efaq/Turning-the-volume-down.html>
 xset b 2 1 200
 
+# useful aliases
+alias lh="ls -lh"
+alias c=clear
+
+# apt
+alias 'apt-up'="sudo apt update && apt list --upgradable"
+
 # tar
 alias untar='tar -zxvf '
 
-alias lh='ls -lh'
 # TMP workspace
 alias ':WB'="cd $HOME/Workbench"
 alias ':T'="cd /tmp"
 
-# Git
-alias g="git"
+# git
+alias g=git
 
 # aliasing to Python3
-alias py=python3
+alias p=python3
 alias ipy=ipython3
-
 
 function ..() { cd '..'; }
 function ...() { cd '../..'; }
@@ -59,7 +65,7 @@ function pkginstall ()
 }
 
 # create a new directory and enter it
-function mkd() {
+function mkcd() {
    mkdir -p "$@" && cd "$_";
 }
 
